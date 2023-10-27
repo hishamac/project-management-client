@@ -9,9 +9,6 @@ import Sidebar from "./Sidebar";
 export default function Dashboard() {
   return (
     <>
-      <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-        {/* Navbar */}
-        <Navbar />
         {/* end Navbar */}
         {/* cards */}
         <div className="w-full px-6 py-6 mx-auto">
@@ -20,14 +17,12 @@ export default function Dashboard() {
           {/* row 2 */}
           <CardsRowTwo />
           {/* row 3 */}
-          <CardsRowThree />
+          {/* <CardsRowThree /> */}
           {/* row 4 */}
           <CardsRowFour />
           {/* Footer */}
           <Footer />
         </div>
-        {/* end cards */}
-      </main>
     </>
   );
 }

@@ -1,0 +1,51 @@
+query GetAllSkills{
+    skills{
+        id
+        title
+        description
+        updatedAt
+    }
+}
+
+query GetSkill($id: Int!){
+    skill(id: $id){
+        id
+        title
+        description
+        updatedAt
+    }
+}
+
+mutation CreateSkill($title: String!, $description: String!){
+    createSkill( createSkillInput: {
+        title: $title, 
+        description: $description
+        }){
+        id
+        title
+        description
+        updatedAt
+    }
+}
+
+mutation UpdateSkill($id: Int!, $title: String!, $description: String!){
+    updateSkill( updateSkillInput: {
+        id: $id,
+        title: $title, 
+        description: $description
+        }){
+        id
+        title
+        description
+        updatedAt
+    }
+}
+
+mutation DeleteSkill($id: Int!){
+    removeSkill(id: $id){
+        id
+        title
+        description
+        updatedAt
+    }
+}

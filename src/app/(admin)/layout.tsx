@@ -1,3 +1,4 @@
+import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 export const metadata = {
   title: "Next.js",
@@ -13,7 +14,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
         <Sidebar />
+        <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
+        <Navbar />
         {children}
+        </main>
       </body>
     </html>
   );

@@ -7,9 +7,7 @@ import SkillsTable from "./SkillsTable";
 export default function Skills() {
   const [modal, setModal] = useState(false);
   return (
-    <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-      {/* Navbar */}
-      <Navbar />
+    <>
 
       <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
@@ -37,6 +35,6 @@ export default function Skills() {
       <div className="w-full px-6 py-6 mx-auto">
         <SkillsTable />
       </div>
-    </main>
+    </>
   );
 }

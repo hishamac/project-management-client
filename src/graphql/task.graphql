@@ -1,0 +1,110 @@
+
+query getAllTasks{
+    tasks{
+      id
+      title
+      description
+      isCompleted
+      isVerified
+      project{
+        id
+        title
+        description
+      }
+      member{
+        firstName
+        username
+        avatarId
+      }
+    }
+}
+
+query getTasks($id: Int!){
+    task(id : $id){
+      id
+      title
+      description
+      isCompleted
+      isVerified
+      project{
+        id
+        title
+        description
+      }
+      member{
+        id
+        firstName
+        username
+        role
+        createdAt
+        avatarId
+      }
+    }
+}
+
+mutation  createTask($title: String!, $description: String!, $projectId: Int!, $memberId: Int! , $duration: DateTime) {
+    createTask(createTaskInput:{
+        title: $title, description: $description, projectId: $projectId, memberId: $memberId duration: $duration
+    }){
+      id
+      title
+      description
+      isCompleted
+      isVerified
+      project{
+        id
+        title
+        description
+      }
+      member{
+        id
+        email
+        firstName
+        lastName
+        role
+        createdAt
+        avatarId
+        isAvailable
+      }
+    }
+}
+
+mutation updateTask($id: Int!, $title: String!, $description: String!, $projectId: Int!, $memberId: Int! , $duration: DateTime) {
+    updateTask(updateTaskInput:{
+        id: $id, title: $title, description: $description, projectId: $projectId, memberId: $memberId duration: $duration 
+    }){
+      id
+      title
+      description
+      isCompleted
+      isVerified
+      project{
+        id
+        title
+        description
+      }
+      member{
+        id
+        email
+        firstName
+        lastName
+        role
+        createdAt
+        avatarId
+        isAvailable
+      }
+    }
+}
+
+mutation removeTask($id: Int!) {
+    removeTask(id: $id){
+        id
+    }
+}
+
+# mutation completeTask($id: Int!) {
+    # completeTask(id: $id){
+    #     id
+    #     isCompleted
+    # }
+# }

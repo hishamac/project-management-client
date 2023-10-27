@@ -1,9 +1,14 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { useSideBarContext } from "@/context/sidebar";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { isSideBarOpen , setIsSideBarOpen } = useSideBarContext();
+
+  const router = useRouter();
+
   useEffect(() => {
     console.log(pathname);
   }, [pathname]);
@@ -18,7 +23,9 @@ export default function Navbar() {
           {/* breadcrumb */}
           <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li className="text-sm leading-normal">
-              <a className="opacity-50 text-slate-700" href="#">
+              <a className="opacity-50 text-slate-700 cursor-pointer" onClick={()=>{
+                router.push("/dashboard")
+              }}>
                 Pages
               </a>
             </li>
@@ -33,7 +40,7 @@ export default function Navbar() {
         </nav>
         <div className="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
           <div className="flex items-center md:ml-auto md:pr-4">
-            <div className="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
+            {/* <div className="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
               <span className="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
                 <i className="fas fa-search" />
               </span>
@@ -42,21 +49,16 @@ export default function Navbar() {
                 className="pl-8.75 text-sm focus:shadow-soft-primary-outline ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
                 placeholder="Type here..."
               />
-            </div>
+            </div> */}
           </div>
           <ul className="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
-            <li className="flex items-center">
+        
+            <li className="flex items-center pl-4 xl:hidden cursor-pointer mr-3" onClick={
+              () => {
+                setIsSideBarOpen(true)
+              }
+            }>
               <a
-                href="./pages/sign-in.html"
-                className="block px-0 py-2 text-sm font-semibold transition-all ease-nav-brand text-slate-500"
-              >
-                <i className="fa fa-user sm:mr-1" />
-                <span className="hidden sm:inline">Sign In</span>
-              </a>
-            </li>
-            <li className="flex items-center pl-4 xl:hidden">
-              <a
-                href="#"
                 className="block p-0 text-sm transition-all ease-nav-brand text-slate-500"
                 sidenav-trigger=""
               >
@@ -67,18 +69,7 @@ export default function Navbar() {
                 </div>
               </a>
             </li>
-            <li className="flex items-center px-4">
-              <a
-                href="#"
-                className="p-0 text-sm transition-all ease-nav-brand text-slate-500"
-              >
-                <i
-                  fixed-plugin-button-nav=""
-                  className="cursor-pointer fa fa-cog"
-                />
-                {/* fixed-plugin-button-nav  */}
-              </a>
-            </li>
+          
             {/* notifications */}
             <li className="relative flex items-center pr-2">
               <p className="hidden transform-dropdown-show" />

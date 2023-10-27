@@ -1,9 +1,33 @@
+"use client";
+import { Member } from "@/gql/graphql";
+import { useEffect, useState } from "react";
+
 interface Props {
     setModal: any;
     modal: boolean;
+    member: Member;
   }
   export default function UpdateMember(props: Props) {
     const { setModal, modal } = props;
+    const [file, setFile] = useState<File | null>(null);
+    const [member, setMember] = useState<Member | null>(props.member); 
+    const [firstName, setFirstName] = useState<string>("");
+    const [lastName, setLastName] = useState<string>("");
+    const [userName, setUserName] = useState<string>("");
+    const [email, setEmail] = useState<string>("" );
+    const [role, setRole] = useState<string>("" );
+    const [bio, setBio] = useState<string>("" );
+
+    useEffect(() => {
+      setFirstName(props.member?.firstName as string);
+      setLastName(props.member?.lastName as string);
+      setUserName(props.member?.username as string);
+      setEmail(props.member?.email as string);
+      setRole(props.member?.role as string);
+      setBio(props.member?.bio as string);
+    }
+    , [props.member]);
+
     return (
       <>
         {modal ? (
@@ -41,6 +65,7 @@ interface Props {
                         placeholder="Enter your First Name"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                         required
+                        value={firstName}
                       />
                     </div>
                     <div className="relative px-6 py-1 flex-auto">
@@ -50,6 +75,7 @@ interface Props {
                         placeholder="Enter your Last Name"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                         required
+                        value={lastName}
                       />
                     </div>
                     <div className="relative px-6 py-1 flex-auto">
@@ -59,6 +85,7 @@ interface Props {
                         placeholder="Enter your Username"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                         required
+                        value={userName}
                       />
                     </div>
                     <div className="relative px-6 py-1 flex-auto">
@@ -68,15 +95,7 @@ interface Props {
                         placeholder="Enter your Password"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                         required
-                      />
-                    </div>
-                    <div className="relative px-6 py-1 flex-auto">
-                      <p className="-mb-1 ml-1 text-sm font-bold">Mobile</p>
-                      <input
-                        type="number"
-                        placeholder="Enter your Mobile"
-                        className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                        required
+
                       />
                     </div>
                     <div className="relative px-6 py-1 flex-auto">
@@ -86,11 +105,12 @@ interface Props {
                         placeholder="Enter your Email"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                         required
+                        value={email}
                       />
                     </div>
                     <div className="relative px-6 py-1 flex-auto">
                       <p className="-mb-1 ml-1 text-sm font-bold">Role</p>
-                      <select className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                      <select value={role} className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                         <option>Choose a Role</option>
                         <option value="projectManager">Project Manager</option>
                         <option value="member">Member</option>
@@ -99,6 +119,7 @@ interface Props {
                     <div className="relative px-6 py-1 flex-auto">
                       <p className="-mb-1 ml-1 text-sm font-bold">Bio</p>
                       <textarea
+                        value={bio}
                         name="textarea-name"
                         rows={5}
                         placeholder="About Yourself"

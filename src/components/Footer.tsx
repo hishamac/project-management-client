@@ -7,11 +7,11 @@ export default function Footer() {
             <div className="text-sm leading-normal text-center text-slate-500 lg:text-left">
               © made with <i className="fa fa-heart" /> by
               <a
-                href="https://www.creative-tim.com"
+                href="https://www.instagram.com/farragodesigns/"
                 className="font-semibold text-slate-700"
                 target="_blank"
               >
-                Creative Tim
+              {" "}   Farrago {" "}
               </a>
               for a better web.
             </div>
@@ -20,16 +20,16 @@ export default function Footer() {
             <ul className="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
               <li className="nav-item">
                 <a
-                  href="https://www.creative-tim.com"
+                  href="https://www.instagram.com/farragodesigns/"
                   className="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-soft-in-out text-slate-500"
                   target="_blank"
                 >
-                  Creative Tim
+               {" "}   Farrago  {" "}
                 </a>
               </li>
               <li className="nav-item">
                 <a
-                  href="https://www.creative-tim.com/presentation"
+                  href="https://www.instagram.com/farragodesigns/"
                   className="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-soft-in-out text-slate-500"
                   target="_blank"
                 >
@@ -38,7 +38,7 @@ export default function Footer() {
               </li>
               <li className="nav-item">
                 <a
-                  href="https://creative-tim.com/blog"
+                  href="https://www.instagram.com/farragodesigns/"
                   className="block px-4 pt-0 pb-1 text-sm font-normal transition-colors ease-soft-in-out text-slate-500"
                   target="_blank"
                 >
@@ -47,7 +47,7 @@ export default function Footer() {
               </li>
               <li className="nav-item">
                 <a
-                  href="https://www.creative-tim.com/license"
+                  href="https://www.instagram.com/farragodesigns/"
                   className="block px-4 pt-0 pb-1 pr-0 text-sm font-normal transition-colors ease-soft-in-out text-slate-500"
                   target="_blank"
                 >

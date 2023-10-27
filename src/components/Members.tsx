@@ -10,10 +10,11 @@ export default function Members() {
     <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
       {/* Navbar */}
       <Navbar />
-  
+
       <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
-        onClick={() => {setModal(true),console.log(modal);
+        onClick={() => {
+          setModal(true), console.log(modal);
         }}
       >
         <button
@@ -23,16 +24,16 @@ export default function Members() {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
-            viewBox="0 0 640 512"
-            className="fill-white mr-2 h-5 w-5"
+            viewBox="0 0 512 512"
+            className="fill-white w-5 h-5 mr-1 mb-0.5"
           >
-            <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+            <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
           </svg>
           Create Member
         </button>
       </div>
       {modal ? <CreateMember setModal={setModal} modal={modal} /> : null}
-      
+
       <div className="w-full px-6 py-6 mx-auto">
         <MembersTable />
       </div>

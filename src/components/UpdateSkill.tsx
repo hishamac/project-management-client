@@ -2,7 +2,7 @@ interface Props {
     setModal: any;
     modal: boolean;
   }
-  export default function CreateSkill(props: Props) {
+  export default function UpdateSkill(props: Props) {
     const { setModal, modal } = props;
     return (
       <>
@@ -14,7 +14,7 @@ interface Props {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between px-5 py-2 border-blueGray-200 rounded-t border-b border-solid">
-                    <h3 className="text-xl font-bold">Create Skill</h3>
+                    <h3 className="text-xl font-bold">Update Skill</h3>
                     <button
                       onClick={() => setModal(false)}
                       type="button"

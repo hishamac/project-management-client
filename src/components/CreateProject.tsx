@@ -2,7 +2,7 @@ interface Props {
   setModal: any;
   modal: boolean;
 }
-export default function CreateMember(props: Props) {
+export default function CreateProject(props: Props) {
   const { setModal, modal } = props;
   return (
     <>

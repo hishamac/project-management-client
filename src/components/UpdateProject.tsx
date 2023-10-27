@@ -2,7 +2,7 @@ interface Props {
     setModal: any;
     modal: boolean;
   }
-  export default function CreateSkill(props: Props) {
+  export default function UpdateProject(props: Props) {
     const { setModal, modal } = props;
     return (
       <>
@@ -14,7 +14,7 @@ interface Props {
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                   {/*header*/}
                   <div className="flex items-start justify-between px-5 py-2 border-blueGray-200 rounded-t border-b border-solid">
-                    <h3 className="text-xl font-bold">Create Skill</h3>
+                    <h3 className="text-xl font-bold">Update Project</h3>
                     <button
                       onClick={() => setModal(false)}
                       type="button"
@@ -26,14 +26,20 @@ interface Props {
                   </div>
                   {/*body*/}
                   <form encType="multipart/form-data">
-                    
+                    <div className="relative px-6 py-1 flex-auto">
+                      <p className="-mb-1 ml-1 text-sm font-bold">Image</p>
+                      <input
+                        className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none "
+                        type="file"
+                        required
+                      />
+                    </div>
                     <div className="relative px-6 py-1 flex-auto">
                       <p className="-mb-1 ml-1 text-sm font-bold">Title</p>
                       <input
                         type="text"
                         placeholder="Enter your Title"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                        required
                       />
                     </div>
                     <div className="relative px-6 py-1 flex-auto">
@@ -42,7 +48,40 @@ interface Props {
                         type="text"
                         placeholder="Enter your Description"
                         className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                        required
+                      />
+                    </div>
+                    <div className="relative px-6 py-1 flex-auto">
+                      <p className="-mb-1 ml-1 text-sm font-bold">
+                        Project Manager
+                      </p>
+                      <input
+                        type="text"
+                        placeholder="Enter your Project Manager"
+                        className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                      />
+                    </div>
+                    <div className="relative px-6 py-1 flex-auto">
+                      <p className="-mb-1 ml-1 text-sm font-bold">Tasks</p>
+                      <input
+                        type="text"
+                        placeholder="Enter your Tasks"
+                        className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                      />
+                    </div>
+                    <div className="relative px-6 py-1 flex-auto">
+                      <p className="-mb-1 ml-1 text-sm font-bold">Skill</p>
+                      <input
+                        type="text"
+                        placeholder="Enter your Skill"
+                        className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                      />
+                    </div>
+                    <div className="relative px-6 py-1 flex-auto">
+                      <p className="-mb-1 ml-1 text-sm font-bold">Duration</p>
+                      <input
+                        type="text"
+                        placeholder="Enter your Duration"
+                        className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       />
                     </div>
                     {/*footer*/}

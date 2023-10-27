@@ -1,13 +1,51 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ViewProjectModal from "./ViewProjectModal";
+import { app } from "@/components/firebase/config";
+var firebasedb = require("firebase/database");
 
 export default function Profile() {
   const [taskSelection, setTaskSelection] = useState("");
   const [viewProject, setViewProject] = useState(false);
+  const [value, setValue] = useState([]);
+
+  useEffect(() => {
+    var db = firebasedb.getDatabase(app);
+
+    const getMessagesBySenderId = (
+      id_type: string | null = null,
+      sender_id: any = null,
+      message_id: any = null,
+      reciever_id: any = null
+    ) => {
+      const checkId = sender_id
+        ? sender_id
+        : message_id
+        ? message_id
+        : reciever_id
+        ? reciever_id
+        : null;
+      firebasedb
+        .get(firebasedb.child(firebasedb.ref(db), "notification"))
+        .then((snapshot: any) => {
+          snapshot.val().map((value: any) => {
+            if (value[id_type as any] == checkId) {
+              console.log(value);
+            }
+          });
+        })
+        .catch((error: Error) => {
+          console.error(error);
+        });
+    };
+    getMessagesBySenderId("sender_id", 14);
+  }, []);
   return (
     <>
-    <ViewProjectModal viewProject={viewProject} setViewProject={setViewProject} />
+      <ViewProjectModal
+        viewProject={viewProject}
+        setViewProject={setViewProject}
+      />
       <div>
         <div className="ease-soft-in-out relative h-full max-h-screen bg-gray-50 transition-all duration-200">
           <div className="w-full px-6 mx-auto">
@@ -339,7 +377,7 @@ export default function Profile() {
                         >
                           Reply
                         </a>
-                      </li>{" "}
+                      </li>
                     </ul>
                   </div>
                 </div>

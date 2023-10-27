@@ -1,0 +1,29 @@
+mutation login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+    token
+    admin{
+        id
+        tasks{
+            id
+            title
+            description
+            createdAt
+            updatedAt
+        project{
+            id
+            title
+            imageId
+            description
+            createdAt
+            updatedAt
+            }
+        }
+        createdAt
+        firstName
+        lastName
+        role
+        isAvailable
+        avatarId
+    }
+  }
+}

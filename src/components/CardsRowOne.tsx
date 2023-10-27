@@ -9,7 +9,7 @@ export default function CardsRowOne() {
               <div className="flex-none w-2/3 max-w-full px-3">
                 <div>
                   <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                    Today's Money
+                    Total Members
                   </p>
                   <h5 className="mb-0 font-bold">
                     $53,000
@@ -36,7 +36,7 @@ export default function CardsRowOne() {
               <div className="flex-none w-2/3 max-w-full px-3">
                 <div>
                   <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                    Today's Users
+                    Total Projects
                   </p>
                   <h5 className="mb-0 font-bold">
                     2,300
@@ -63,7 +63,7 @@ export default function CardsRowOne() {
               <div className="flex-none w-2/3 max-w-full px-3">
                 <div>
                   <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                    New Clients
+                    Total Project Managers
                   </p>
                   <h5 className="mb-0 font-bold">
                     +3,462
@@ -90,7 +90,7 @@ export default function CardsRowOne() {
               <div className="flex-none w-2/3 max-w-full px-3">
                 <div>
                   <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                    Sales
+                    Total Completed Projects
                   </p>
                   <h5 className="mb-0 font-bold">
                     $103,430

@@ -1,5 +1,6 @@
 "use client";
 
+import { useSideBarContext } from "@/context/sidebar";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -9,6 +10,15 @@ export default function Sidebar() {
   useEffect(() => {
     console.log(pathname);
   }, [pathname]);
+
+
+  const { isSideBarOpen , setIsSideBarOpen } = useSideBarContext();
+
+
+  useEffect(() => {
+   console.log(isSideBarOpen);
+  }, [isSideBarOpen]);
+  
 
   const sidebarItemsFirst = [
     {
@@ -21,7 +31,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
-          <title>shop</title>
+          {/* <title>shop</title> */}
           <g stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
             <g
               transform="translate(-1716.000000, -439.000000)"
@@ -53,7 +63,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
-          <title>shop</title>
+          {/* <title>shop</title> */}
           <g stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
             <g
               transform="translate(-1716.000000, -439.000000)"
@@ -85,7 +95,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="#ffffff"
-          className="w-6 h-6"
+          className="w-3 h-3 opacity-60"
         >
           <path
             fillRule="evenodd"
@@ -99,7 +109,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="#000000"
-          className="w-6 h-6"
+          className="w-3 h-3 "
         >
           <path
             fillRule="evenodd"
@@ -117,7 +127,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="#ffffff"
-          className="w-6 h-6"
+          className="w-3 h-3"
         >
           <path d="M15 3.75H9v16.5h6V3.75zM16.5 20.25h3.375c1.035 0 1.875-.84 1.875-1.875V5.625c0-1.036-.84-1.875-1.875-1.875H16.5v16.5zM4.125 3.75H7.5v16.5H4.125a1.875 1.875 0 01-1.875-1.875V5.625c0-1.036.84-1.875 1.875-1.875z" />
         </svg>
@@ -127,7 +137,7 @@ export default function Sidebar() {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="#000000"
-          className="w-6 h-6"
+          className="w-3 h-3"
         >
           <path d="M15 3.75H9v16.5h6V3.75zM16.5 20.25h3.375c1.035 0 1.875-.84 1.875-1.875V5.625c0-1.036-.84-1.875-1.875-1.875H16.5v16.5zM4.125 3.75H7.5v16.5H4.125a1.875 1.875 0 01-1.875-1.875V5.625c0-1.036.84-1.875 1.875-1.875z" />
         </svg>
@@ -136,12 +146,29 @@ export default function Sidebar() {
       title: "Projects",
     },
     {
-      svgWhite: <svg></svg>,
-      svgBlack: <svg></svg>,
-      link: "#",
-      title: "Fourth",
+      svgWhite: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="#ffffff"
+          className="w-3 h-3"
+        >
+          <path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z" />
+        </svg>
+      ),
+      svgBlack: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="#000000"
+          className="w-3 h-3"
+        >
+          <path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z" />
+        </svg>
+      ),
+      link: "/skills",
+      title: "Skills",
     },
-    { svgWhite: <svg></svg>, svgBlack: <svg></svg>, link: "#", title: "Fifth" },
   ];
 
   const sidebarItemsSecond = [
@@ -188,145 +215,70 @@ export default function Sidebar() {
   );
 
   return (
-    <aside className="max-w-62.5 ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full -translate-x-full flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
-      <div className="h-19.5">
-        <i className="absolute top-0 right-0 hidden p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:hidden" />
-        <a
-          className="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
-          href="#"
-          target="_blank"
-        >
-          <img
-            src="https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/logo-ct.png"
-            className="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8"
-            alt="main_logo"
-          />
-          <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">
-            Soft UI Dashboard
-          </span>
-        </a>
-      </div>
-      <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
-      <div className="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
-        <ul className="flex flex-col pl-0 mb-0 cursor-pointer">
-          {sidebarItemsFirst.map((item) =>
-            item.link === pathname ? (
-              <ActiveButton
-                svgWhite={item.svgWhite}
-                title={`${item.title}`}
-                link={`${item.link}`}
-              />
-            ) : (
-              <InActiveButton
-                svgBlack={item.svgBlack}
-                title={`${item.title}`}
-                link={`${item.link}`}
-              />
-            )
-          )}
-          <li className="w-full mt-4">
-            <h6 className="pl-6 ml-2 text-xs font-bold leading-tight uppercase opacity-60">
-              Account pages
-            </h6>
-          </li>
-          {/* want 3 */}
-          <li className="mt-0.5 w-full">
-            <a
-              className="py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors"
-              href="./pages/profile.html"
-            >
-              <div className="shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-2.5">
-                <svg
-                  width="12px"
-                  height="12px"
-                  viewBox="0 0 46 42"
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlnsXlink="http://www.w3.org/1999/xlink"
-                >
-                  <title>customer-support</title>
-                  <g
-                    stroke="none"
-                    strokeWidth={1}
-                    fill="none"
-                    fillRule="evenodd"
-                  >
-                    <g
-                      transform="translate(-1717.000000, -291.000000)"
-                      fill="#FFFFFF"
-                      fillRule="nonzero"
-                    >
-                      <g transform="translate(1716.000000, 291.000000)">
-                        <g transform="translate(1.000000, 0.000000)">
-                          <path
-                            className="fill-slate-800 opacity-60"
-                            d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"
-                          />
-                          <path
-                            className="fill-slate-800"
-                            d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z"
-                          />
-                          <path
-                            className="fill-slate-800"
-                            d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z"
-                          />
-                        </g>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-              <span className="ml-1 duration-300 opacity-100 pointer-events-none ease-soft">
-                Profile
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div className="mx-4">
-        {/* load phantom colors for card after: */}
-        <p className="invisible hidden text-gray-800 text-red-500 text-red-600 after:bg-gradient-to-tl after:from-gray-900 after:to-slate-800 after:from-blue-600 after:to-cyan-400 after:from-red-500 after:to-yellow-400 after:from-green-600 after:to-lime-400 after:from-red-600 after:to-rose-400 after:from-slate-600 after:to-slate-300 text-lime-500 text-cyan-500 text-slate-400 text-fuchsia-500" />
-        <div
-          className="after:opacity-65 after:bg-gradient-to-tl after:from-slate-600 after:to-slate-300 relative flex min-w-0 flex-col items-center break-words rounded-2xl border-0 border-solid border-blue-900 bg-white bg-clip-border shadow-none after:absolute after:top-0 after:bottom-0 after:left-0 after:z-10 after:block after:h-full after:w-full after:rounded-2xl after:content-['']"
-          sidenav-card=""
-        >
-          <div
-            className="mb-7.5 absolute h-full w-full rounded-2xl bg-cover bg-center"
-            style={{
-              backgroundImage:
-                'url("https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/curved-images/white-curved.jpeg")',
-            }}
-          />
-          <div className="relative z-20 flex-auto w-full p-4 text-left text-white">
-            <div className="flex items-center justify-center w-8 h-8 mb-4 text-center bg-white bg-center rounded-lg icon shadow-soft-2xl">
-              <i
-                className="top-0 z-10 text-lg leading-none text-transparent ni ni-diamond bg-gradient-to-tl from-slate-600 to-slate-300 bg-clip-text opacity-80"
-                sidenav-card-icon=""
-              />
-            </div>
-            <div className="transition-all duration-200 ease-nav-brand">
-              <h6 className="mb-0 text-white">Need help?</h6>
-              <p className="mt-0 mb-4 text-xs font-semibold leading-tight">
-                Please check our docs
-              </p>
-              <a
-                href="https://www.creative-tim.com/learning-lab/tailwind/html/quick-start/soft-ui-dashboard/"
-                target="_blank"
-                className="inline-block w-full px-8 py-2 mb-0 text-xs font-bold text-center text-black uppercase transition-all ease-in bg-white border-0 border-white rounded-lg shadow-soft-md bg-150 leading-pro hover:shadow-soft-2xl hover:scale-102"
-              >
-                Documentation
-              </a>
-            </div>
-          </div>
+    <aside className={`max-w-62.5 ease-nav-brand h-screen z-990 fixed inset-y-0 my-4 ml-4 block w-full ${ !isSideBarOpen ? '-translate-x-full' : '-translate-x-0' } flex-wrap items-center justify-between overflow-y-auto rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent`}>
+      <div className="flex flex-col justify-between w-full h-full">
+        <div className="h-19.5" onClick={
+            () => {
+              setIsSideBarOpen(false)
+            }
+          } >
+          <i className="absolute top-0 right-0 p-4 opacity-50 cursor-pointer fas fa-times text-slate-400 xl:opacity-0" />
+          <a
+            className="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
+          >
+            <img
+              src="https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/logo-ct.png"
+              className="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8"
+              alt="main_logo"
+            />
+            <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">
+              Soft UI Dashboard
+            </span>
+          </a>
         </div>
-        {/* pro btn  */}
-        <a
-          className="inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102"
-          target="_blank"
-          href="https://www.creative-tim.com/product/soft-ui-dashboard-pro-tailwind?ref=sidebarfree"
-        >
-          Upgrade to pro
-        </a>
+        <hr className="h-px mt-0 bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent" />
+        <div className="items-center block w-auto max-h-screen overflow-auto h-sidenav grow basis-full">
+          <ul className="flex flex-col pl-0 mb-0 cursor-pointer">
+            {sidebarItemsFirst.map((item) =>
+              item.link === pathname ? (
+                <ActiveButton
+                  svgWhite={item.svgWhite}
+                  title={`${item.title}`}
+                  link={`${item.link}`}
+                />
+              ) : (
+                <InActiveButton
+                  svgBlack={item.svgBlack}
+                  title={`${item.title}`}
+                  link={`${item.link}`}
+                />
+              )
+            )}
+          </ul>
+        </div>
+        <div className="mx-4 mb-2">
+          {/* pro btn  */}
+          <a
+            className="inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102"
+            onClick={() => {
+              router.push("/login");
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 mr-1 mb-0.5"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Logout{" "}
+          </a>
+        </div>
       </div>
     </aside>
   );

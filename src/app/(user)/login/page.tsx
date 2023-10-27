@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 
-const Home = dynamic(() => import("../components/Home"), {
+const Login = dynamic(() => import("../../../components/Login"), {
   ssr: false,
 });
 
 const page = () => {
-  return <Home />;
+  return <Login />;
 };
 
 export default page;

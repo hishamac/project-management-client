@@ -1,14 +1,14 @@
 "use client";
 import { useState } from "react";
-import CreateProject from "./CreateProject";
 import Navbar from "./Navbar";
-import ProjectsTable from "./ProjectsTable";
+import CreateSkill from "./CreateSkill";
+import SkillsTable from "./SkillsTable";
 
-export default function Projects() {
+export default function Skills() {
   const [modal, setModal] = useState(false);
-
   return (
     <>
+
       <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
         onClick={() => {
@@ -27,12 +27,13 @@ export default function Projects() {
           >
             <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
           </svg>
-          Create Project
+          Create Skill
         </button>
       </div>
-      {modal ? <CreateProject setModal={setModal} modal={modal} /> : null}
+      {modal ? <CreateSkill setModal={setModal} modal={modal} /> : null}
+
       <div className="w-full px-6 py-6 mx-auto">
-        <ProjectsTable />
+        <SkillsTable />
       </div>
     </>
   );

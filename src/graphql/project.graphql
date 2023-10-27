@@ -1,0 +1,138 @@
+query getAllProjects{
+    projects{
+        id
+        title
+        description
+        duration
+        createdAt
+        updatedAt
+        manager{
+            id
+            username
+            email
+            avatarId
+        }
+        tasks{
+            id
+            title
+            member{
+                avatarId
+                username
+            }
+        }
+        skillProject{
+            id
+            skill{
+                id
+                title
+            }
+        }
+    }
+}
+
+query getProject($id: Int!){
+    project(id: $id){
+        id
+        title
+        description
+        duration
+        createdAt
+        updatedAt
+        manager{
+            id
+            username
+            email
+            avatarId
+        }
+        tasks{
+            id
+            title
+            member{
+                avatarId
+                username
+            }
+        }
+        skillProject{
+            id
+            skill{
+                id
+                title
+            }
+        }
+    }
+}
+
+mutation createProject($title: String!, $description: String!, $duration: DateTime!, $managerId: Int!, $skillsIds: [Int!]!){
+    createProject(createProjectInput:{
+        title: $title, description: $description, duration: $duration, managerId: $managerId, skillsIds: $skillsIds 
+    }){
+        id
+        title
+        description
+        duration
+        createdAt
+        updatedAt
+        manager{
+            id
+            username
+            email
+            avatarId
+        }
+        tasks{
+            id
+            title
+            member{
+                avatarId
+                username
+            }
+        }
+        skillProject{
+            id
+            skill{
+                id
+                title
+            }
+        }
+    }
+}
+
+mutation updateProject($id: Int!, $title: String!, $description: String!, $duration: DateTime!, $managerId: Int!, $skillsIds: [Int!]!){
+    updateProject(updateProjectInput:{
+        id: $id, title: $title, description: $description, duration: $duration, managerId: $managerId, skillsIds: $skillsIds 
+    }){
+        id
+        title
+        description
+        duration
+        createdAt
+        updatedAt
+        manager{
+            id
+            username
+            email
+            avatarId
+        }
+        tasks{
+            id
+            title
+            member{
+                avatarId
+                username
+            }
+        }
+        skillProject{
+            id
+            skill{
+                id
+                title
+            }
+        }
+    }
+}
+
+mutation removeProject($id: Int!){
+    removeProject(id: $id){
+        id
+        title
+    }
+}

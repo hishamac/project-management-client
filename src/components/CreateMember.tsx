@@ -1,9 +1,22 @@
+"use client";
+import { useState } from "react";
+
 interface Props {
   setModal: any;
   modal: boolean;
 }
 export default function CreateMember(props: Props) {
   const { setModal, modal } = props;
+  const [file, setFile] = useState<File | null>(null);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [bio, setBio] = useState("");
+
+
   return (
     <>
       {modal ? (
@@ -32,6 +45,9 @@ export default function CreateMember(props: Props) {
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none "
                       type="file"
                       required
+                      onChange={(e) => {
+                        setFile(e?.target?.files ? e?.target?.files[0] : null);
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -41,6 +57,10 @@ export default function CreateMember(props: Props) {
                       placeholder="Enter your First Name"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
+                      onChange={(e) => {
+                        setFirstName(e.target.value);
+                      }
+                      }
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -50,6 +70,10 @@ export default function CreateMember(props: Props) {
                       placeholder="Enter your Last Name"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
+                      onChange={(e) => {
+                        setLastName(e.target.value);
+                      }
+                      }
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -59,6 +83,10 @@ export default function CreateMember(props: Props) {
                       placeholder="Enter your Username"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }
+                      }
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -68,15 +96,10 @@ export default function CreateMember(props: Props) {
                       placeholder="Enter your Password"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
-                    />
-                  </div>
-                  <div className="relative px-6 py-1 flex-auto">
-                    <p className="-mb-1 ml-1 text-sm font-bold">Mobile</p>
-                    <input
-                      type="number"
-                      placeholder="Enter your Mobile"
-                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                      required
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }
+                      }
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -86,11 +109,20 @@ export default function CreateMember(props: Props) {
                       placeholder="Enter your Email"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                      }
+                      }
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Role</p>
-                    <select className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                    <select
+                      onChange={(e) => {
+                        setRole(e.target.value);
+                      }
+                      }
+                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
                       <option>Choose a Role</option>
                       <option value="projectManager">Project Manager</option>
                       <option value="member">Member</option>
@@ -105,6 +137,10 @@ export default function CreateMember(props: Props) {
                       className="focus:shadow-soft-primary-outline min-h-unset text-sm leading-5.6 ease-soft block h-auto w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       defaultValue={""}
                       required
+                      onChange={(e) => {
+                        setBio(e.target.value);
+                      }
+                      }
                     />
                   </div>
                   {/*footer*/}

@@ -1,9 +1,11 @@
 "use client";
+import { useSideBarContext } from "@/context/sidebar";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { isSideBarOpen , setIsSideBarOpen } = useSideBarContext();
   useEffect(() => {
     console.log(pathname);
   }, [pathname]);
@@ -54,9 +56,12 @@ export default function Navbar() {
                 <span className="hidden sm:inline">Sign In</span>
               </a>
             </li>
-            <li className="flex items-center pl-4 xl:hidden">
+            <li className="flex items-center pl-4 xl:hidden" onClick={
+              () => {
+                setIsSideBarOpen(true)
+              }
+            }>
               <a
-                href="#"
                 className="block p-0 text-sm transition-all ease-nav-brand text-slate-500"
                 sidenav-trigger=""
               >

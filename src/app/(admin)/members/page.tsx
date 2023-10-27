@@ -1,4 +1,4 @@
-import { GetAllMemmbersDocument, GetAllMemmbersQuery, GetAllMemmbersQueryVariables } from "@/gql/graphql";
+import { GetAllMemmbersDocument, GetAllMemmbersQuery, GetAllMemmbersQueryVariables, Member } from "@/gql/graphql";
 import { getUrqlClient } from "@/lib/urql";
 import dynamic from "next/dynamic";
 
@@ -16,7 +16,7 @@ const page = async () => {
   });
   
 
-  return <Members />;
+  return <Members members={members.data?.members as Member[]}/>;
 };
 
 export default page;

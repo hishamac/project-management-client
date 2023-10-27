@@ -4,10 +4,12 @@ query GetAllMemmbers {
       email
       firstName
       lastName
+      username
       role
       createdAt
       updatedAt
       avatarId
+      bio
       isAvailable
       createdAt
       skillMembers{

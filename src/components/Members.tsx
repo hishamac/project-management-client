@@ -3,13 +3,16 @@ import { useState } from "react";
 import MembersTable from "./MembersTable";
 import Navbar from "./Navbar";
 import CreateMember from "./CreateMember";
+import { Member } from "@/gql/graphql";
 
-export default function Members() {
+interface Props {
+  members: Member[];
+}
+
+export default function Members(props:Props) {
   const [modal, setModal] = useState(false);
   return (
-    <main className="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200">
-      {/* Navbar */}
-      <Navbar />
+    <>
 
       <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
@@ -35,8 +38,8 @@ export default function Members() {
       {modal ? <CreateMember setModal={setModal} modal={modal} /> : null}
 
       <div className="w-full px-6 py-6 mx-auto">
-        <MembersTable />
+        <MembersTable members={props.members}/>
       </div>
-    </main>
+    </>
   );
 }

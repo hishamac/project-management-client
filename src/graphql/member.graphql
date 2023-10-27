@@ -1,0 +1,84 @@
+query GetAllMemmbers {
+    members{
+      id
+      email
+      firstName
+      lastName
+      role
+      createdAt
+      updatedAt
+      avatarId
+      isAvailable
+      createdAt
+      skillMembers{
+        id
+        skill{
+          id
+          title
+        }
+      }
+    }
+}
+
+query GetMember($id: Int!) {
+    member(id: $id){
+      id
+      email
+      firstName
+      lastName
+      role
+      createdAt
+      updatedAt
+      avatarId
+      isAvailable
+      createdAt
+      tasks{
+        id
+        title
+        description
+        isCompleted
+        isVerified
+        project{
+            id
+            title
+            description
+        }
+      }
+    }
+}
+
+
+
+mutation createMember($email: String!, $firstName: String!, $lastName: String!, $role: Roles! , $username: String! , $bio: String! , $password: String! , $skillsIds: [Int!] ) {
+    createMember(createMemberInput:{
+        email: $email, firstName: $firstName, lastName: $lastName, role: $role username: $username bio: $bio  password:$password skillsIds:$skillsIds 
+    }){
+      id
+      email
+      firstName
+      lastName
+      role
+      createdAt
+      updatedAt
+      avatarId
+      isAvailable
+      createdAt
+    }
+}
+
+mutation updateMember($id: Int!, $email: String!, $firstName: String!, $lastName: String!, $role: Roles) {
+    updateMember(updateMemberInput:{
+        id: $id, email: $email, firstName: $firstName, lastName: $lastName, role: $role
+    }){
+      id
+      email
+      firstName
+      lastName
+      role
+      createdAt
+      updatedAt
+      avatarId
+      isAvailable
+      createdAt
+    }
+}

@@ -1,23 +1,28 @@
-"use client"
+"use client";
 import { useState } from "react";
 import UpdateMember from "./UpdateMember";
 import DeleteMember from "./DeleteMember";
-import { Member } from "@/gql/graphql";
+import { Member, Skill } from "@/gql/graphql";
 
 interface Props {
   members: Member[];
+  skills: Skill[];
 }
 
-
 export default function MembersTable(props: Props) {
-  const [modal, setModal] = useState(false)
-  const [deleteModal, setDeleteModal] = useState(false)
-  const [allMembers, setAllMembers] = useState(props.members)
-  const [viewMembers, setViewMembers] = useState(props.members)
-  const [selectedMember, setSelectedMember] = useState<Member | null>(null)
+  const [modal, setModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [allMembers, setAllMembers] = useState(props.members);
+  const [viewMembers, setViewMembers] = useState(props.members);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   return (
     <>
-      <UpdateMember modal={modal} setModal={setModal} member={selectedMember as Member} />
+      <UpdateMember
+        modal={modal}
+        setModal={setModal}
+        skills={props.skills}
+        member={selectedMember as Member}
+      />
       <DeleteMember deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
       <div className="flex flex-wrap -mx-3">
         <div className="flex-none w-full max-w-full px-3">
@@ -116,8 +121,8 @@ export default function MembersTable(props: Props) {
                       </a>
                     </td>
                   </tr> */}
-                    {
-                      viewMembers && viewMembers.map((member, index) => {
+                    {viewMembers &&
+                      viewMembers.map((member, index) => {
                         return (
                           <tr>
                             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -125,7 +130,11 @@ export default function MembersTable(props: Props) {
                                 <div>
                                   <img
                                     src={`
-                            ${member.avatarId ? member.avatarId : `/img/avatar.jpg`}
+                            ${
+                              member.avatarId
+                                ? member.avatarId
+                                : `/img/avatar.jpg`
+                            }
                             `}
                                     className="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl"
                                     alt="user1"
@@ -150,25 +159,36 @@ export default function MembersTable(props: Props) {
                               </p>
                             </td>
                             <td className="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                              <span className={`bg-gradient-to-tl ${member.isAvailable ? "from-green-600 to-lime-400" : "from-red-600 to-red-400"}  px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white`}>
-                                {member.isAvailable ? "Available" : "Not Available"}
+                              <span
+                                className={`bg-gradient-to-tl ${
+                                  member.isAvailable
+                                    ? "from-green-600 to-lime-400"
+                                    : "from-red-600 to-red-400"
+                                }  px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white`}
+                              >
+                                {member.isAvailable
+                                  ? "Available"
+                                  : "Not Available"}
                               </span>
                             </td>
                             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                               <span className="text-xs font-semibold leading-tight text-slate-400">
-                                {new Date(member.createdAt).getDate()} / {new Date(member.createdAt).getMonth() + 1} / {new Date(member.createdAt).getFullYear()}
+                                {new Date(member.createdAt).getDate()} /{" "}
+                                {new Date(member.createdAt).getMonth() + 1} /{" "}
+                                {new Date(member.createdAt).getFullYear()}
                               </span>
                             </td>
-                            <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent" onClick={() => setModal(true)}>
+                            <td
+                              className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent"
+                              onClick={() => setModal(true)}
+                            >
                               <a
                                 href="javascript:;"
                                 className="text-xs font-semibold leading-tight text-slate-400"
-                                onClick={
-                                  () => {
-                                    setSelectedMember(member)
-                                    console.log(selectedMember);
-                                  }
-                                }
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                  console.log(selectedMember);
+                                }}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -180,15 +200,16 @@ export default function MembersTable(props: Props) {
                                 </svg>
                               </a>
                             </td>
-                            <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent" onClick={() => setDeleteModal(true)}>
+                            <td
+                              className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent"
+                              onClick={() => setDeleteModal(true)}
+                            >
                               <a
                                 href="javascript:;"
                                 className="text-xs font-semibold leading-tight text-slate-400"
-                                onClick={
-                                  () => {
-                                    setSelectedMember(member)
-                                  }
-                                }
+                                onClick={() => {
+                                  setSelectedMember(member);
+                                }}
                               >
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -201,9 +222,8 @@ export default function MembersTable(props: Props) {
                               </a>
                             </td>
                           </tr>
-                        )
-                      })
-                    }
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>

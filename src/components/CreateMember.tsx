@@ -1,9 +1,12 @@
 "use client";
+import { Skill } from "@/gql/graphql";
 import { useState } from "react";
+import SkillSearchInput from "./SkillSearchInput";
 
 interface Props {
   setModal: any;
   modal: boolean;
+  skills: Skill[];
 }
 export default function CreateMember(props: Props) {
   const { setModal, modal } = props;
@@ -15,7 +18,9 @@ export default function CreateMember(props: Props) {
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
-
+  const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
+  const selectedSkillsIds = selectedSkills.map((skill) => skill.id);
+  const [skills, setSkills] = useState<Skill[]>([]);
 
   return (
     <>
@@ -24,7 +29,7 @@ export default function CreateMember(props: Props) {
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-sticky outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl md:min-w-120">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none h-[95vh] overflow-y-auto">
                 {/*header*/}
                 <div className="flex items-start justify-between px-5 py-2 border-blueGray-200 rounded-t border-b border-solid">
                   <h3 className="text-xl font-bold">Create Member</h3>
@@ -59,8 +64,7 @@ export default function CreateMember(props: Props) {
                       required
                       onChange={(e) => {
                         setFirstName(e.target.value);
-                      }
-                      }
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -72,8 +76,7 @@ export default function CreateMember(props: Props) {
                       required
                       onChange={(e) => {
                         setLastName(e.target.value);
-                      }
-                      }
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -85,8 +88,7 @@ export default function CreateMember(props: Props) {
                       required
                       onChange={(e) => {
                         setUserName(e.target.value);
-                      }
-                      }
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -98,8 +100,7 @@ export default function CreateMember(props: Props) {
                       required
                       onChange={(e) => {
                         setPassword(e.target.value);
-                      }
-                      }
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -111,8 +112,7 @@ export default function CreateMember(props: Props) {
                       required
                       onChange={(e) => {
                         setEmail(e.target.value);
-                      }
-                      }
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -120,14 +120,23 @@ export default function CreateMember(props: Props) {
                     <select
                       onChange={(e) => {
                         setRole(e.target.value);
-                      }
-                      }
-                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none">
+                      }}
+                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                    >
                       <option>Choose a Role</option>
                       <option value="projectManager">Project Manager</option>
                       <option value="member">Member</option>
                     </select>
                   </div>
+                  <SkillSearchInput
+                    skillsData={props.skills}
+                    selectedSkills={selectedSkills}
+                    setSelectedSkills={setSelectedSkills}
+                    skills={skills}
+                    setSkills={setSkills}
+                    selectedSkillsIds={selectedSkillsIds}
+                    className="px-6 py-3"
+                  />
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Bio</p>
                     <textarea
@@ -139,8 +148,7 @@ export default function CreateMember(props: Props) {
                       required
                       onChange={(e) => {
                         setBio(e.target.value);
-                      }
-                      }
+                      }}
                     />
                   </div>
                   {/*footer*/}

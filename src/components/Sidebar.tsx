@@ -234,12 +234,12 @@ export default  function Sidebar() {
             className="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
           >
             <img
-              src="https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/logo-ct.png"
+              src="/img/zh-logo.png"
               className="inline h-full max-w-full transition-all duration-200 ease-nav-brand max-h-8"
               alt="main_logo"
             />
             <span className="ml-1 font-semibold transition-all duration-200 ease-nav-brand">
-              Soft UI Dashboard
+              Zenith Dashboard
             </span>
           </a>
         </div>

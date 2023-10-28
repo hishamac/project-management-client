@@ -18,11 +18,6 @@ export default function Home() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Zenith | Home</title>
       <link
-        rel="shortcut icon"
-        href="https://raw.githubusercontent.com/TailGrids/play-tailwind/main/assets/images/favicon.png"
-        type="image/x-icon"
-      />
-      <link
         rel="stylesheet"
         href="https://raw.githubusercontent.com/TailGrids/play-tailwind/main/assets/css/animate.css"
       />

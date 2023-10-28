@@ -31,6 +31,7 @@ export default function UpdateMember(props: Props) {
     setRole(props.member?.role as string);
     setBio(props.member?.bio as string);
     console.log(props.member?.skillMembers);
+    // setSelectedSkills(props.member?.skillMembers as Skill[]);
   }, [props.member]);
 
   return (
@@ -124,7 +125,7 @@ export default function UpdateMember(props: Props) {
                     </select>
                   </div>
                   <SkillSearchInput
-                    skillsData={props.skills}
+                  skillData={props.skills}
                     selectedSkills={selectedSkills}
                     setSelectedSkills={setSelectedSkills}
                     skills={skills}

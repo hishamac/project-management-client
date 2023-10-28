@@ -1,10 +1,14 @@
 import {
+  GetAllMemmbersDocument,
+  GetAllMemmbersQuery,
+  GetAllMemmbersQueryVariables,
   GetAllProjectsDocument,
   GetAllProjectsQuery,
   GetAllProjectsQueryVariables,
   GetAllSkillsDocument,
   GetAllSkillsQuery,
   GetAllSkillsQueryVariables,
+  Member,
   Project,
   Skill,
 } from "@/gql/graphql";
@@ -27,7 +31,13 @@ const page = async () => {
     GetAllSkillsQueryVariables
   >(GetAllSkillsDocument, {});
 
-  return <Projects projects={projects.data?.projects as Project[]} skills={skills.data?.skills as Skill[]} />;
+  const members = await client.query<
+    GetAllMemmbersQuery,
+    GetAllMemmbersQueryVariables
+  >(GetAllMemmbersDocument, {
+  });
+
+  return <Projects projects={projects.data?.projects as Project[]} skills={skills.data?.skills as Skill[]} members={members.data?.members as Member[]}/>;
 };
 
 export default page;

@@ -1,4 +1,6 @@
 export default function Home() {
+  // https://www.builtatlightspeed.com/category/tailwind?themes[refinementList][categories.css][0]=tailwind&themes[refinementList][distribution][0]=free
+  // https://www.google.com/search?q=tailwind+homepage+template&oq=tailwind+home&gs_lcrp=EgZjaHJvbWUqBwgCEAAYgAQyBggAEEUYOTIHCAEQABiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIHCAgQABiABDIHCAkQABiABNIBCDUwMDZqMWo3qAIAsAIA&sourceid=chrome&ie=UTF-8#ip=1
   return (
     <>
       <meta charSet="UTF-8" />

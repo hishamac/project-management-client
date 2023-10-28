@@ -9,7 +9,6 @@ interface Props {
   projects: Project[];
   skills: Skill[];
   members: Member[];
-
 }
 
 export default function Projects(props: Props) {
@@ -49,7 +48,7 @@ export default function Projects(props: Props) {
           filteredProjects={filteredProjects}
           setFilteredProjects={setFilteredProjects}
           setAllProjects={setAllProjects}
-                  />
+        />
       ) : null}
       <div className="w-full px-6 py-6 mx-auto">
         <ProjectsTable

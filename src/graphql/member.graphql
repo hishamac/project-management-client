@@ -65,6 +65,13 @@ mutation createMember($email: String!, $firstName: String!, $lastName: String!, 
       avatarId
       isAvailable
       createdAt
+      skillMembers{
+        id
+        skill{
+          id
+          title
+        }
+      }
     }
 }
 

@@ -5,15 +5,17 @@ import DeleteMember from "./DeleteMember";
 import { Member, Skill } from "@/gql/graphql";
 
 interface Props {
-  members: Member[];
+  allMembers: Member[];
+  setAllMembers: React.Dispatch<React.SetStateAction<Member[]>>;
+  filteredMembers: Member[];
+  setFilteredMembers: React.Dispatch<React.SetStateAction<Member[]>>;
   skills: Skill[];
 }
 
 export default function MembersTable(props: Props) {
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [allMembers, setAllMembers] = useState(props.members);
-  const [viewMembers, setViewMembers] = useState(props.members);
+  const { allMembers, setAllMembers, filteredMembers, setFilteredMembers } = props;
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   return (
     <>
@@ -121,8 +123,8 @@ export default function MembersTable(props: Props) {
                       </a>
                     </td>
                   </tr> */}
-                    {viewMembers &&
-                      viewMembers.map((member, index) => {
+                    {allMembers &&
+                      allMembers.map((member, index) => {
                         return (
                           <tr>
                             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">

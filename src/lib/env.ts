@@ -1,3 +1,5 @@
+
+export const SERVER = "https://project-management-api-ten.vercel.app/" || process.env.SERVER_URL as string;
 export const API_KEY = "123"
 // "AZzPkqAAYcUFw53bT4CAb5PQ7Ndby7f9Qn4jnDyVk5GkCv2e896mqAwDTQH8z9rk0p8F";
 export const FIREBASE_CONFIG = {

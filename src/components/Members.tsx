@@ -12,6 +12,8 @@ interface Props {
 
 export default function Members(props:Props) {
   const [modal, setModal] = useState(false);
+  const [allMembers, setAllMembers] = useState(props.members);
+  const [filteredMembers, setFilteredMembers] = useState(props.members);
   return (
     <>
 
@@ -36,10 +38,20 @@ export default function Members(props:Props) {
           Create Member
         </button>
       </div>
-      {modal ? <CreateMember skills={props.skills} setModal={setModal} modal={modal} /> : null}
+      {modal ? <CreateMember skills={props.skills} setModal={setModal} modal={modal}
+      allMembers={allMembers}
+      filteredMembers={filteredMembers}
+      setFilteredMembers={setFilteredMembers}
+      setAllMembers={setAllMembers}
+      /> : null}
 
       <div className="w-full px-6 py-6 mx-auto">
-        <MembersTable members={props.members} skills={props.skills}/>
+        <MembersTable  skills={props.skills}
+        allMembers={allMembers}
+        filteredMembers={filteredMembers}
+        setFilteredMembers={setFilteredMembers}
+        setAllMembers={setAllMembers}
+        />
       </div>
     </>
   );

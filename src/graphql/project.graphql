@@ -15,6 +15,8 @@ query getAllProjects{
         tasks{
             id
             title
+            isCompleted
+            isVerified
             member{
                 avatarId
                 username

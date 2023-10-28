@@ -1,6 +1,12 @@
+import { Project } from "@/gql/graphql";
+
 interface Props {
   setDeleteModal: any;
   deleteModal: boolean;
+  allProjects: Project[];
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>;
+  filteredProjects: Project[];
+  setFilteredProjects: React.Dispatch<React.SetStateAction<Project[]>>;
 }
 export default function DeleteProject(props: Props) {
   const { setDeleteModal, deleteModal } = props;

@@ -10,6 +10,10 @@ interface Props {
   skills: Skill[];
   projects: Project[];
   members: Member[];
+  allProjects: Project[];
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>;
+  filteredProjects: Project[];
+  setFilteredProjects: React.Dispatch<React.SetStateAction<Project[]>>;
 }
 export default function UpdateProject(props: Props) {
   const { setModal, modal } = props;

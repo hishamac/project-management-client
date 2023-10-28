@@ -1,4 +1,4 @@
-import { Member, Skill } from "@/gql/graphql";
+import { Member, Project, Skill } from "@/gql/graphql";
 import { useEffect, useState } from "react";
 import SkillSearchInput from "./SkillSearchInput";
 import ProjectManagerSearchInput from "./ProjectManagerSearchInput";
@@ -8,6 +8,10 @@ interface Props {
   modal: boolean;
   skills: Skill[];
   members: Member[];
+  allProjects: Project[];
+  setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>;
+  filteredProjects: Project[];
+  setFilteredProjects: React.Dispatch<React.SetStateAction<Project[]>>;
 }
 export default function CreateProject(props: Props) {
   const [file, setFile] = useState<File | null>(null);

@@ -1,13 +1,27 @@
 "use client";
-import { Member, Skill } from "@/gql/graphql";
+import {
+  Member,
+  Roles,
+  Skill,
+  UpdateMemberDocument,
+  UpdateMemberMutation,
+  UpdateMemberMutationVariables,
+} from "@/gql/graphql";
 import { useEffect, useState } from "react";
 import SkillSearchInput from "./SkillSearchInput";
+import { toast } from "react-toastify";
+import { SERVER } from "@/lib/env";
+import { OperationResult, useMutation } from "urql";
 
 interface Props {
   setModal: any;
   modal: boolean;
   member: Member;
   skills: Skill[];
+  allMembers: Member[];
+  setAllMembers: React.Dispatch<React.SetStateAction<Member[]>>;
+  filteredMembers: Member[];
+  setFilteredMembers: React.Dispatch<React.SetStateAction<Member[]>>;
 }
 export default function UpdateMember(props: Props) {
   const { setModal, modal } = props;
@@ -16,23 +30,94 @@ export default function UpdateMember(props: Props) {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [role, setRole] = useState<string>("");
+  const [role, setRole] = useState<Roles>();
   const [bio, setBio] = useState<string>("");
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
   const selectedSkillsIds = selectedSkills.map((skill) => skill.id);
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [state, UpdateMemberExecute] = useMutation(UpdateMemberDocument);
 
   useEffect(() => {
     setFirstName(props.member?.firstName as string);
     setLastName(props.member?.lastName as string);
     setUserName(props.member?.username as string);
     setEmail(props.member?.email as string);
-    setRole(props.member?.role as string);
+    setRole(props.member?.role as Roles);
     setBio(props.member?.bio as string);
     console.log(props.member?.skillMembers);
     // setSelectedSkills(props.member?.skillMembers as Skill[]);
   }, [props.member]);
+
+  const HandleSubmit = async () => {
+    const savedMember: OperationResult<
+      UpdateMemberMutation,
+      UpdateMemberMutationVariables
+    > = await UpdateMemberExecute({
+      email: email,
+      firstName: firstName,
+      id: props.member?.id as number,
+      lastName: lastName,
+      role: role as Roles,
+      bio: bio,
+      username: userName,
+      password: password,
+      skillsIds: selectedSkillsIds as number[],
+    });
+
+    let res;
+
+    let newMember: Member = savedMember?.data?.updateMember as Member;
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("id", savedMember.data?.updateMember?.id + "");
+
+      // upload image to server using axios
+      res = await fetch(`${SERVER}member/upload/`, {
+        method: "POST",
+        body: formData,
+      });
+
+      console.log(await res.json());
+    }
+
+    if (savedMember.data?.updateMember) {
+      toast.success("Member Updated Successfully");
+      newMember.skillMembers = [];
+      newMember?.skillMembers.map((skillMember) => {
+        skillMember.skill = selectedSkills.find(
+          (skill) => skill.id === skillMember.skill?.id
+        );
+      });
+
+      const edited = props.allMembers.map((member) => {
+        if (member.id === newMember.id) {
+          return newMember;
+        }
+        return member;
+      });
+
+      props.setAllMembers(edited);
+      props.setFilteredMembers(edited);
+      setModal(false);
+      setFirstName("");
+      setLastName("");
+      setUserName("");
+      setPassword("");
+      setEmail("");
+      setRole(undefined);
+      setBio("");
+      setSelectedSkills([]);
+      setSkills([]);
+    } else {
+      savedMember.error?.message.split("]")[1].startsWith(" target")
+        ? toast.error("server error")
+        : toast.error(savedMember.error?.message.split("]")[1]);
+    }
+  };
 
   return (
     <>
@@ -55,13 +140,21 @@ export default function UpdateMember(props: Props) {
                   />
                 </div>
                 {/*body*/}
-                <form encType="multipart/form-data">
+                <form
+                  encType="multipart/form-data"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    HandleSubmit();
+                  }}
+                >
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Avatar</p>
                     <input
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none "
                       type="file"
-                      required
+                      onChange={(e) => {
+                        setFile(e?.target?.files ? e?.target?.files[0] : null);
+                      }}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -72,6 +165,7 @@ export default function UpdateMember(props: Props) {
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
                       value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -82,6 +176,7 @@ export default function UpdateMember(props: Props) {
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
                       value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -92,6 +187,7 @@ export default function UpdateMember(props: Props) {
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
                       value={userName}
+                      onChange={(e) => setUserName(e.target.value)}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -100,7 +196,8 @@ export default function UpdateMember(props: Props) {
                       type="password"
                       placeholder="Enter your Password"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
@@ -111,21 +208,23 @@ export default function UpdateMember(props: Props) {
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                       required
                       value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Role</p>
                     <select
                       value={role}
+                      onChange={(e) => setRole(e.target.value as Roles)}
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                     >
                       <option>Choose a Role</option>
-                      <option value="projectManager">Project Manager</option>
-                      <option value="member">Member</option>
+                      <option value={Roles.Manager}>Project Manager</option>
+                      <option value={Roles.Member}>Member</option>
                     </select>
                   </div>
                   <SkillSearchInput
-                  skillData={props.skills}
+                    skillData={props.skills}
                     selectedSkills={selectedSkills}
                     setSelectedSkills={setSelectedSkills}
                     skills={skills}
@@ -141,7 +240,6 @@ export default function UpdateMember(props: Props) {
                       rows={5}
                       placeholder="About Yourself"
                       className="focus:shadow-soft-primary-outline min-h-unset text-sm leading-5.6 ease-soft block h-auto w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                      defaultValue={""}
                       required
                     />
                   </div>
@@ -162,7 +260,7 @@ export default function UpdateMember(props: Props) {
                       data-target="#import"
                       className="inline-block px-8 py-2 m-1 mb-4 text-xs font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer ease-soft-in leading-pro tracking-tight-soft bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-md bg-150 bg-x-25 hover:scale-102 active:opacity-85"
                     >
-                      Submit
+                      {state.fetching ? "•••" : "Update"}
                     </button>
                   </div>
                 </form>

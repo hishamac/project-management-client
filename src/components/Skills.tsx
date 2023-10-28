@@ -3,9 +3,18 @@ import { useState } from "react";
 import Navbar from "./Navbar";
 import CreateSkill from "./CreateSkill";
 import SkillsTable from "./SkillsTable";
+import { Skill } from "@/gql/graphql";
 
-export default function Skills() {
+
+interface Props {
+  skills: Skill[];
+
+}
+
+export default function Skills(props: Props) {
   const [modal, setModal] = useState(false);
+  const [allSkills, setAllSkills] = useState(props.skills);
+  const [filteredSkills, setFilteredSkills] = useState(props.skills);
   return (
     <>
 
@@ -30,10 +39,12 @@ export default function Skills() {
           Create Skill
         </button>
       </div>
-      {modal ? <CreateSkill setModal={setModal} modal={modal} /> : null}
+      {modal ? <CreateSkill  allSkills={allSkills} setAllSkills={setAllSkills}
+    filteredSkills={filteredSkills} setFilteredSkills={setFilteredSkills} setModal={setModal} modal={modal} /> : null}
 
       <div className="w-full px-6 py-6 mx-auto">
-        <SkillsTable />
+        <SkillsTable  allSkills={allSkills} setAllSkills={setAllSkills}
+    filteredSkills={filteredSkills} setFilteredSkills={setFilteredSkills} />
       </div>
     </>
   );

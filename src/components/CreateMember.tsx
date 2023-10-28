@@ -47,6 +47,10 @@ export default function CreateMember(props: Props) {
     });
 
 
+    let res;
+    
+    let newMember : Member = savedMember?.data?.createMember as Member;
+
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -54,7 +58,7 @@ export default function CreateMember(props: Props) {
 
 
       // upload image to server using axios
-      const res = await fetch(
+      res = await fetch(
         `${SERVER}member/upload/`,
         {
           method: "POST",
@@ -62,19 +66,22 @@ export default function CreateMember(props: Props) {
         }
       );
 
-      console.log(res.json());
+      console.log(await res.json());
     }
 
-  
+
 
     if (savedMember.data?.createMember) {
-      toast.success("Member Added");
-      const newMember = savedMember.data.createMember;
+      toast.success("Member Added Successfully");
       newMember.skillMembers = [];
-      newMember.skillMembers.map((skillMember) => {
+      newMember?.skillMembers.map((skillMember) => {
         skillMember.skill = selectedSkills.find((skill) => skill.id === skillMember.skill?.id);
       }
       );
+
+      
+      // set image url to saved member
+      // newMember.avatarId = await res?.json().then((data) => data?.avatarId);
 
       props.setAllMembers([...props.allMembers, newMember]);
       props.setFilteredMembers([...props.filteredMembers, newMember]);
@@ -263,7 +270,7 @@ export default function CreateMember(props: Props) {
                       data-target="#import"
                       className="inline-block px-8 py-2 m-1 mb-4 text-xs font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer ease-soft-in leading-pro tracking-tight-soft bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-md bg-150 bg-x-25 hover:scale-102 active:opacity-85"
                     >
-                      Submit
+                     {state.fetching ? "•••" : "Submit"}
                     </button>
                   </div>
                 </form>

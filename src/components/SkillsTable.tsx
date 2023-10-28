@@ -2,14 +2,27 @@
 import { useState } from "react";
 import UpdateSkill from "./UpdateSkill";
 import DeleteSkill from "./DeleteSkill";
+import { Skill } from "@/gql/graphql";
 
-export default function SkillsTable() {
+interface Props {
+  allSkills: Skill[];
+  setAllSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
+  filteredSkills: Skill[];
+  setFilteredSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
+}
+
+export default function SkillsTable(porps: Props) {
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const { allSkills, filteredSkills, setFilteredSkills, setAllSkills } = porps;
   return (
     <>
-    <UpdateSkill modal={modal} setModal={setModal} />
-    <DeleteSkill deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
+    <UpdateSkill modal={modal} setModal={setModal} 
+    allSkills={allSkills} setAllSkills={setAllSkills}
+    filteredSkills={filteredSkills} setFilteredSkills={setFilteredSkills}
+    />
+    <DeleteSkill deleteModal={deleteModal} setDeleteModal={setDeleteModal}   allSkills={allSkills} setAllSkills={setAllSkills}
+    filteredSkills={filteredSkills} setFilteredSkills={setFilteredSkills}/>
     <div className="flex flex-wrap -mx-3">
       <div className="flex-none w-full max-w-full px-3">
         <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">

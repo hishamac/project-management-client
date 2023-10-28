@@ -1,6 +1,12 @@
+import { Skill } from "@/gql/graphql";
+
 interface Props {
   setDeleteModal: any;
   deleteModal: boolean;
+  allSkills: Skill[];
+  setAllSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
+  filteredSkills: Skill[];
+  setFilteredSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
 }
 export default function DeleteSkill(props: Props) {
   const { setDeleteModal, deleteModal } = props;

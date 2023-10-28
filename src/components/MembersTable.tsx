@@ -2,7 +2,12 @@
 import { useState } from "react";
 import UpdateMember from "./UpdateMember";
 import DeleteMember from "./DeleteMember";
-import { Member, Skill } from "@/gql/graphql";
+import {
+  Member,
+  RemoveMemberDocument,
+  Skill,
+} from "@/gql/graphql";
+import { OperationResult, useMutation } from "urql";
 
 interface Props {
   allMembers: Member[];
@@ -15,8 +20,11 @@ interface Props {
 export default function MembersTable(props: Props) {
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const { allMembers, setAllMembers, filteredMembers, setFilteredMembers } = props;
+  const { allMembers, setAllMembers, filteredMembers, setFilteredMembers } =
+    props;
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [state, RemoveMemberExecute] = useMutation(RemoveMemberDocument);
+
   return (
     <>
       <UpdateMember
@@ -24,8 +32,20 @@ export default function MembersTable(props: Props) {
         setModal={setModal}
         skills={props.skills}
         member={selectedMember as Member}
+        setAllMembers={setAllMembers}
+        allMembers={allMembers}
+        setFilteredMembers={setFilteredMembers}
+        filteredMembers={filteredMembers}
       />
-      <DeleteMember deleteModal={deleteModal} setDeleteModal={setDeleteModal} />
+      <DeleteMember
+        deleteModal={deleteModal}
+        setDeleteModal={setDeleteModal}
+        setAllMembers={setAllMembers}
+        allMembers={allMembers}
+        setFilteredMembers={setFilteredMembers}
+        filteredMembers={filteredMembers}
+        id={selectedMember?.id as number}
+      />
       <div className="flex flex-wrap -mx-3">
         <div className="flex-none w-full max-w-full px-3">
           <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">

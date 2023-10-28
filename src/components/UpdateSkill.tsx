@@ -1,6 +1,12 @@
+import { Skill } from "@/gql/graphql";
+
 interface Props {
     setModal: any;
     modal: boolean;
+    allSkills: Skill[];
+    setAllSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
+    filteredSkills: Skill[];
+    setFilteredSkills: React.Dispatch<React.SetStateAction<Skill[]>>;
   }
   export default function UpdateSkill(props: Props) {
     const { setModal, modal } = props;

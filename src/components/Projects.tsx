@@ -9,11 +9,13 @@ interface Props {
   projects: Project[];
   skills: Skill[];
   members: Member[];
+
 }
 
 export default function Projects(props: Props) {
   const [modal, setModal] = useState(false);
-
+  const [allProjects, setAllProjects] = useState(props.projects);
+  const [filteredProjects, setFilteredProjects] = useState(props.projects);
   return (
     <>
       <div
@@ -43,13 +45,21 @@ export default function Projects(props: Props) {
           members={props.members}
           setModal={setModal}
           modal={modal}
-        />
+          allProjects={allProjects}
+          filteredProjects={filteredProjects}
+          setFilteredProjects={setFilteredProjects}
+          setAllProjects={setAllProjects}
+                  />
       ) : null}
       <div className="w-full px-6 py-6 mx-auto">
         <ProjectsTable
           skills={props.skills}
           projects={props.projects}
           members={props.members}
+          allProjects={allProjects}
+          filteredProjects={filteredProjects}
+          setFilteredProjects={setFilteredProjects}
+          setAllProjects={setAllProjects}
         />
       </div>
     </>

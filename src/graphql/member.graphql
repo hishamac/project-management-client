@@ -75,9 +75,9 @@ mutation createMember($email: String!, $firstName: String!, $lastName: String!, 
     }
 }
 
-mutation updateMember($id: Int!, $email: String!, $firstName: String!, $lastName: String!, $role: Roles) {
+mutation updateMember($id: Int!,$email: String!, $firstName: String!, $lastName: String!, $role: Roles! , $username: String! , $bio: String! , $password: String! , $skillsIds: [Int!] ) {
     updateMember(updateMemberInput:{
-        id: $id, email: $email, firstName: $firstName, lastName: $lastName, role: $role
+        id: $id, email: $email, firstName: $firstName, lastName: $lastName, role: $role username: $username bio: $bio  password:$password skillsIds:$skillsIds 
     }){
       id
       email
@@ -89,5 +89,11 @@ mutation updateMember($id: Int!, $email: String!, $firstName: String!, $lastName
       avatarId
       isAvailable
       createdAt
+    }
+}
+
+mutation removeMember($id: Int!) {
+    removeMember(id: $id){
+      id
     }
 }

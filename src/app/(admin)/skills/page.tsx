@@ -1,4 +1,4 @@
-import { GetAllSkillsDocument, GetAllSkillsQuery, GetAllSkillsQueryVariables } from "@/gql/graphql";
+import { GetAllSkillsDocument, GetAllSkillsQuery, GetAllSkillsQueryVariables, Skill } from "@/gql/graphql";
 import { getUrqlClient } from "@/lib/urql";
 import dynamic from "next/dynamic";
 
@@ -14,7 +14,9 @@ const page =async () => {
   GetAllSkillsQueryVariables
 >(GetAllSkillsDocument, {
 });
-  return <Skills />;
+  return <Skills 
+  skills={skills?.data?.skills as Skill[]}
+  />;
 };
 
 export default page;

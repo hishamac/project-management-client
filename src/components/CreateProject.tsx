@@ -1,9 +1,25 @@
+import { Member, Skill } from "@/gql/graphql";
+import { useState } from "react";
+import SkillSearchInput from "./SkillSearchInput";
+import ProjectManagerSearchInput from "./ProjectManagerSearchInput";
+
 interface Props {
   setModal: any;
   modal: boolean;
+  skills: Skill[];
 }
 export default function CreateProject(props: Props) {
+  const [file, setFile] = useState<File | null>(null);
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+
   const { setModal, modal } = props;
+  const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
+  const selectedSkillsIds = selectedSkills.map((skill) => skill.id);
+  const [skills, setSkills] = useState<Skill[]>([]);
+  const [selectedProjectManager, setSelectedProjectManager] =
+    useState<Member>(Object);
+  const [projectManagers, setProjectManagers] = useState<Member[]>(Array);
   return (
     <>
       {modal ? (
@@ -50,32 +66,21 @@ export default function CreateProject(props: Props) {
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                     />
                   </div>
-                  <div className="relative px-6 py-1 flex-auto">
-                    <p className="-mb-1 ml-1 text-sm font-bold">
-                      Project Manager
-                    </p>
-                    <input
-                      type="text"
-                      placeholder="Enter your Project Manager"
-                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                    />
-                  </div>
-                  <div className="relative px-6 py-1 flex-auto">
-                    <p className="-mb-1 ml-1 text-sm font-bold">Tasks</p>
-                    <input
-                      type="text"
-                      placeholder="Enter your Tasks"
-                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                    />
-                  </div>
-                  <div className="relative px-6 py-1 flex-auto">
-                    <p className="-mb-1 ml-1 text-sm font-bold">Skill</p>
-                    <input
-                      type="text"
-                      placeholder="Enter your Skill"
-                      className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
-                    />
-                  </div>
+                  <ProjectManagerSearchInput
+                    selectedProjectManager={selectedProjectManager}
+                    setSelectedProjectManager={setSelectedProjectManager}
+                    projectManagers={projectManagers}
+                    setProjectManagers={setProjectManagers}
+                  />
+                  <SkillSearchInput
+                    skillsData={props.skills}
+                    selectedSkills={selectedSkills}
+                    setSelectedSkills={setSelectedSkills}
+                    skills={skills}
+                    setSkills={setSkills}
+                    selectedSkillsIds={selectedSkillsIds}
+                    className="px-6 py-3"
+                  />
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Duration</p>
                     <input

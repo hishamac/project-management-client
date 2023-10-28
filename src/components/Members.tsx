@@ -3,10 +3,11 @@ import { useState } from "react";
 import MembersTable from "./MembersTable";
 import Navbar from "./Navbar";
 import CreateMember from "./CreateMember";
-import { Member } from "@/gql/graphql";
+import { Member, Skill } from "@/gql/graphql";
 
 interface Props {
   members: Member[];
+  skills: Skill[];
 }
 
 export default function Members(props:Props) {
@@ -35,10 +36,10 @@ export default function Members(props:Props) {
           Create Member
         </button>
       </div>
-      {modal ? <CreateMember setModal={setModal} modal={modal} /> : null}
+      {modal ? <CreateMember skills={props.skills} setModal={setModal} modal={modal} /> : null}
 
       <div className="w-full px-6 py-6 mx-auto">
-        <MembersTable members={props.members}/>
+        <MembersTable members={props.members} skills={props.skills}/>
       </div>
     </>
   );

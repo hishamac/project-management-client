@@ -1,4 +1,15 @@
-export default function CardsRowOne() {
+import { Member, Project, Roles, Skill } from "@/gql/graphql";
+
+interface Props {
+  projects: Project[];
+  skills: Skill[];
+  members: Member[];
+}
+
+
+export default function CardsRowOne(
+  props: Props
+) {
   return (
     <div className="flex flex-wrap -mx-3">
       {/* card1 */}
@@ -12,9 +23,9 @@ export default function CardsRowOne() {
                     Total Members
                   </p>
                   <h5 className="mb-0 font-bold">
-                    $53,000
+                    {props.members.length + " "}
                     <span className="text-sm leading-normal font-weight-bolder text-lime-500">
-                      +55%
+                      
                     </span>
                   </h5>
                 </div>
@@ -39,9 +50,9 @@ export default function CardsRowOne() {
                     Total Projects
                   </p>
                   <h5 className="mb-0 font-bold">
-                    2,300
+                    {props.projects.length + " "}
                     <span className="text-sm leading-normal font-weight-bolder text-lime-500">
-                      +3%
+                     
                     </span>
                   </h5>
                 </div>
@@ -66,9 +77,9 @@ export default function CardsRowOne() {
                     Total Project Managers
                   </p>
                   <h5 className="mb-0 font-bold">
-                    +3,462
+                    {props.members.filter((member) => member.role === Roles.Manager).length + " "}
                     <span className="text-sm leading-normal text-red-600 font-weight-bolder">
-                      -2%
+                     
                     </span>
                   </h5>
                 </div>
@@ -90,12 +101,12 @@ export default function CardsRowOne() {
               <div className="flex-none w-2/3 max-w-full px-3">
                 <div>
                   <p className="mb-0 font-sans text-sm font-semibold leading-normal">
-                    Total Completed Projects
+                    Total Skills
                   </p>
                   <h5 className="mb-0 font-bold">
-                    $103,430
+                    {props.skills.length + " "}
                     <span className="text-sm leading-normal font-weight-bolder text-lime-500">
-                      +5%
+                      
                     </span>
                   </h5>
                 </div>

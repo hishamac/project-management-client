@@ -3,7 +3,9 @@ import { useState } from "react";
 import Navbar from "./Navbar";
 import CreateSkill from "./CreateSkill";
 import SkillsTable from "./SkillsTable";
-import { Skill } from "@/gql/graphql";
+import { Roles, Skill } from "@/gql/graphql";
+import { useGlobalContext } from "@/context/user";
+import ErrorPage from "./Error";
 
 
 interface Props {
@@ -15,10 +17,16 @@ export default function Skills(props: Props) {
   const [modal, setModal] = useState(false);
   const [allSkills, setAllSkills] = useState(props.skills);
   const [filteredSkills, setFilteredSkills] = useState(props.skills);
+  const {user , setUser} = useGlobalContext();
   return (
     <>
 
-      <div
+      
+
+      {
+            user?.role === Roles.Admin ?  <>
+          
+          <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
         onClick={() => {
           setModal(true), console.log(modal);
@@ -39,6 +47,11 @@ export default function Skills(props: Props) {
           Create Skill
         </button>
       </div>
+      </>
+        : <ErrorPage/>
+          }
+     
+
       {modal ? <CreateSkill  allSkills={allSkills} setAllSkills={setAllSkills}
     filteredSkills={filteredSkills} setFilteredSkills={setFilteredSkills} setModal={setModal} modal={modal} /> : null}
 

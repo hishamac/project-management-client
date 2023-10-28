@@ -3,7 +3,9 @@ import { useState } from "react";
 import MembersTable from "./MembersTable";
 import Navbar from "./Navbar";
 import CreateMember from "./CreateMember";
-import { Member, Skill } from "@/gql/graphql";
+import { Member, Roles, Skill } from "@/gql/graphql";
+import { useGlobalContext } from "@/context/user";
+import ErrorPage from "./Error";
 
 interface Props {
   members: Member[];
@@ -14,9 +16,13 @@ export default function Members(props:Props) {
   const [modal, setModal] = useState(false);
   const [allMembers, setAllMembers] = useState(props.members);
   const [filteredMembers, setFilteredMembers] = useState(props.members);
+  const {user , setUser} = useGlobalContext();
   return (
     <>
-
+     <div className="w-full px-6 py-6 mx-auto">
+          {
+            user?.role === Roles.Admin ?  <>
+          
       <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
         onClick={() => {
@@ -37,7 +43,11 @@ export default function Members(props:Props) {
           </svg>
           Create Member
         </button>
-      </div>
+      </div></>
+        : <ErrorPage/>
+          }
+        </div>
+
       {modal ? <CreateMember skills={props.skills} setModal={setModal} modal={modal}
       allMembers={allMembers}
       filteredMembers={filteredMembers}

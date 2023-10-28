@@ -3,7 +3,9 @@ import { useState } from "react";
 import CreateProject from "./CreateProject";
 import Navbar from "./Navbar";
 import ProjectsTable from "./ProjectsTable";
-import { Member, Project, Skill } from "@/gql/graphql";
+import { Member, Project, Roles, Skill } from "@/gql/graphql";
+import ErrorPage from "./Error";
+import { useGlobalContext } from "@/context/user";
 
 interface Props {
   projects: Project[];
@@ -15,9 +17,13 @@ export default function Projects(props: Props) {
   const [modal, setModal] = useState(false);
   const [allProjects, setAllProjects] = useState(props.projects);
   const [filteredProjects, setFilteredProjects] = useState(props.projects);
+  const {user , setUser} = useGlobalContext();
   return (
     <>
-      <div
+      {
+            user?.role === Roles.Admin ?  <>
+          
+          <div
         className="w-full px-6 py-0.5 mx-auto flex justify-end"
         onClick={() => {
           setModal(true), console.log(modal);
@@ -37,7 +43,12 @@ export default function Projects(props: Props) {
           </svg>
           Create Project
         </button>
-      </div>
+      </div></>
+        : <ErrorPage/>
+          }
+     
+
+
       {modal ? (
         <CreateProject
           skills={props.skills}

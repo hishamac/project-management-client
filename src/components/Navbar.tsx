@@ -1,13 +1,31 @@
 "use client";
 import { useSideBarContext } from "@/context/sidebar";
+import { useGlobalContext } from "@/context/user";
+import { CheckLoggedInDocument, CheckLoggedInQuery, CheckLoggedInQueryVariables, Member } from "@/gql/graphql";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useQuery } from "urql";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { isSideBarOpen , setIsSideBarOpen } = useSideBarContext();
 
   const router = useRouter();
+
+  const { user , setUser } = useGlobalContext();
+
+  const [{ fetching, data }] = useQuery<
+  CheckLoggedInQuery,
+  CheckLoggedInQueryVariables
+>({
+  query: CheckLoggedInDocument,
+  variables: {
+  }
+});
+
+if (!fetching && data?.checkLoggedIn) {
+  setUser(data?.checkLoggedIn as Member);
+}
 
   useEffect(() => {
     console.log(pathname);

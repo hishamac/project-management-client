@@ -2,12 +2,32 @@
 import { useEffect, useState } from "react";
 import ViewProjectModal from "./ViewProjectModal";
 import { app } from "@/components/firebase/config";
+import { useGlobalContext } from "@/context/user";
+import { useQuery } from "urql";
+import { CheckLoggedInDocument, CheckLoggedInQuery, CheckLoggedInQueryVariables, Member } from "@/gql/graphql";
 var firebasedb = require("firebase/database");
 
 export default function Profile() {
   const [taskSelection, setTaskSelection] = useState("");
   const [viewProject, setViewProject] = useState(false);
   const [value, setValue] = useState([]);
+
+
+  const { user , setUser } = useGlobalContext();
+
+  const [{ fetching, data }] = useQuery<
+  CheckLoggedInQuery,
+  CheckLoggedInQueryVariables
+>({
+  query: CheckLoggedInDocument,
+  variables: {
+  }
+});
+
+if (!fetching && data?.checkLoggedIn) {
+  setUser(data?.checkLoggedIn as Member);
+}
+
 
   useEffect(() => {
     var db = firebasedb.getDatabase(app);

@@ -27,3 +27,35 @@ mutation login($username: String!, $password: String!) {
     }
   }
 }
+
+query checkLoggedIn{
+  checkLoggedIn{
+    id
+    tasks{
+        id
+        title
+        description
+        createdAt
+        updatedAt
+    project{
+        id
+        title
+        imageId
+        description
+        createdAt
+        updatedAt
+        }
+    }
+    username
+    createdAt
+    firstName
+    lastName
+    role
+    isAvailable
+    avatarId
+  }
+}
+
+mutation logout{
+  logout
+}

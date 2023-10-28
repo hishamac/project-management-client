@@ -1,18 +1,25 @@
 "use client";
 
 import { useSideBarContext } from "@/context/sidebar";
+import { LogoutDocument, LogoutMutation, LogoutMutationVariables } from "@/gql/graphql";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { OperationResult, useMutation } from "urql";
 
-export default function Sidebar() {
+export default  function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
   useEffect(() => {
     console.log(pathname);
   }, [pathname]);
+  const [state, LogoutExecute] = useMutation(LogoutDocument);
 
 
   const { isSideBarOpen , setIsSideBarOpen } = useSideBarContext();
+  const HandleSubmit = async () => {
+  const logout: OperationResult<LogoutMutation, LogoutMutationVariables> = await LogoutExecute({  
+  });
+  }
 
 
   useEffect(() => {
@@ -261,6 +268,7 @@ export default function Sidebar() {
           <a
             className="inline-block w-full px-6 py-3 my-4 text-xs font-bold text-center text-white uppercase align-middle transition-all ease-in border-0 rounded-lg select-none shadow-soft-md bg-150 bg-x-25 leading-pro bg-gradient-to-tl from-purple-700 to-pink-500 hover:shadow-soft-2xl hover:scale-102"
             onClick={() => {
+              HandleSubmit();
               router.push("/login");
             }}
           >

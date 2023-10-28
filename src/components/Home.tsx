@@ -1,8 +1,16 @@
 "use client";
+import { useGlobalContext } from "@/context/user";
+import { CheckLoggedInDocument, CheckLoggedInQuery, CheckLoggedInQueryVariables, Member, Roles } from "@/gql/graphql";
 import { useRouter } from "next/navigation";
+import { useQuery } from "urql";
 
 export default function Home() {
   const router = useRouter();
+
+  const { user , setUser } = useGlobalContext();
+
+ 
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -25,7 +33,10 @@ export default function Home() {
       {/* ==== WOW JS ==== */}
       <script src="https://raw.githubusercontent.com/TailGrids/play-tailwind/main/assets/js/wow.min.js"></script>
       {/* ====== Navbar Section Start */}
-      <div className="ud-header absolute top-0 left-0 z-40 flex w-full items-center bg-transparent">
+      <div onClick={()=>{
+        console.log(user);
+        
+      }} className="ud-header absolute top-0 left-0 z-40 flex w-full items-center bg-transparent">
         <div className="container">
           <div className="relative -mx-4 flex items-center justify-between">
             <div className="w-60 max-w-full px-4">
@@ -81,14 +92,6 @@ export default function Home() {
                     </li>
                     <li className="group relative cursor-pointer">
                       <a
-                        onClick={() => router.push("/dashboard")}
-                        className="ud-menu-scroll mx-8 flex py-2 text-base text-[#090E34] group-hover:text-gradient-to-tl from-purple-700 to-pink-500 lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
-                      >
-                        Dashboard
-                      </a>
-                    </li>
-                    <li className="group relative cursor-pointer">
-                      <a
                         onClick={() => router.push("https://www.gmail.com")}
                         className="ud-menu-scroll mx-8 flex py-2 text-base text-[#090E34] group-hover:text-gradient-to-tl from-purple-700 to-pink-500 lg:mr-0 lg:ml-7 lg:inline-flex lg:py-6 lg:px-0 lg:text-white lg:group-hover:text-white lg:group-hover:opacity-70 xl:ml-12"
                       >
@@ -98,12 +101,18 @@ export default function Home() {
                   </ul>
                 </nav>
               </div>
-              <div className="hidden justify-end pr-16 sm:flex lg:pr-0">
+              <div className="hidden justify-end pr-16 sm:flex lg:pr-0 cursor-pointer" 
+              onClick={()=>{
+                !user?.role ? router.push("/login") : user.role == Roles.Admin ?  router.push("/dashboard") : router.push("/profile") ;
+              }}
+              >
                 <a
-                  href="/login"
+
                   className="signUpBtn rounded-lg bg-white bg-opacity-20 py-3 px-6 text-base font-medium text-white duration-300 ease-in-out hover:bg-opacity-100 hover:text-[#090E34]"
                 >
-                  Login
+                  {
+                    !user?.role ? "Sign In" : user.role == Roles.Admin ? "Dashboard" : "Profile"
+                  }
                 </a>
               </div>
             </div>

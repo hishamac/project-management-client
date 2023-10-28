@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginType } from "@/gql/graphql";
+import { CheckLoggedInDocument, CheckLoggedInQuery, CheckLoggedInQueryVariables, LoginType, Member } from "@/gql/graphql";
 import { parseJwt } from "@/lib/cryptr";
 import {
   createContext,
@@ -10,8 +10,9 @@ import {
   useState,
   useEffect,
 } from "react";
+import { OperationResult, useQuery } from "urql";
 
-type DataType = LoginType;
+type DataType = Member;
 
 interface ContextProps {
   user: DataType;
@@ -28,21 +29,16 @@ const GlobalContext = createContext<ContextProps>({
 export const GlobalContextProvider = ({ children }: any) => {
   const [user, setUser] = useState<DataType>({} as DataType);
 
+  const [result] = useQuery<CheckLoggedInQuery, CheckLoggedInQueryVariables>({
+    query: CheckLoggedInDocument,
+  });
+
   useEffect(() => {
-    const cookie = document.cookie
-      .split(";")
-      .find((cookie) => cookie.startsWith("_adm_="));
-    if (cookie) {
-      const token = cookie.split("=")[1];
-      const payload = parseJwt(token);
-      setUser({
-        admin: {
-          ...payload,
-        },
-        token: cookie.split("=")[1],
-      });
+    if (result.data?.checkLoggedIn) {
+      setUser(result.data.checkLoggedIn as Member);
     }
-  }, []);
+  }, [result]);
+
   return (
     <GlobalContext.Provider value={{ user , setUser }}>
       {children}

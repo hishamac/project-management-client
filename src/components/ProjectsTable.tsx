@@ -54,7 +54,7 @@ export default function ProjectsTable(props: Props) {
                         Project
                       </th>
                       <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                        Budget
+                        Manager
                       </th>
                       <th className="px-6 py-3 pl-2 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                         Status
@@ -100,7 +100,7 @@ export default function ProjectsTable(props: Props) {
               </td>
               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                 <p className="mb-0 text-sm font-semibold leading-normal">
-                  {project.manager?.firstName}
+                  {project.manager?.username}
                 </p>
               </td>
               <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -117,12 +117,12 @@ export default function ProjectsTable(props: Props) {
               <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                 <div className="flex items-center justify-center">
                   <span className="mr-2 text-xs font-semibold leading-tight">
-                    { (projectCompletion ? projectCompletion : 1) / (tasksCount ? tasksCount : 1) * 100 }%
+                    { (projectCompletion ? projectCompletion : 0) / (tasksCount ? tasksCount : 1) * 100 }%
                   </span>
                   <div>
                     <div className="text-xs h-0.75 w-30 m-0 flex overflow-visible rounded-lg bg-gray-200">
                       <div
-                        className={`duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-full flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all`}
+                        className={`duration-600 ease-soft bg-gradient-to-tl from-blue-600 to-cyan-400 -mt-0.38 -ml-px flex h-1.5 w-[${ (projectCompletion ? projectCompletion : 0) / (tasksCount ? tasksCount : 1) * 100 }%] flex-col justify-center overflow-hidden whitespace-nowrap rounded bg-fuchsia-500 text-center text-white transition-all`}
                         role="progressbar"
                         aria-valuenow={0}
                         aria-valuemin={0}

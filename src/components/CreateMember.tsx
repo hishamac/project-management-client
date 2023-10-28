@@ -1,6 +1,6 @@
 "use client";
 import { Skill } from "@/gql/graphql";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SkillSearchInput from "./SkillSearchInput";
 
 interface Props {
@@ -21,6 +21,10 @@ export default function CreateMember(props: Props) {
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
   const selectedSkillsIds = selectedSkills.map((skill) => skill.id);
   const [skills, setSkills] = useState<Skill[]>([]);
+
+  // useEffect(() => {
+  //   setSkills(props.skills);
+  // }, [skills]);
 
   return (
     <>
@@ -129,7 +133,7 @@ export default function CreateMember(props: Props) {
                     </select>
                   </div>
                   <SkillSearchInput
-                    skillsData={props.skills}
+                    skillData={props.skills}
                     selectedSkills={selectedSkills}
                     setSelectedSkills={setSelectedSkills}
                     skills={skills}

@@ -27,11 +27,6 @@ import "react-toastify/dist/ReactToastify.css";
           sizes="76x76"
           href="https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/apple-icon.png"
         />
-        <link
-          rel="icon"
-          type="image/png"
-          href="https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/favicon.png"
-        />
         <title>Soft UI Dashboard Tailwind</title>
         <link
           href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"

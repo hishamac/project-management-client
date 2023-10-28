@@ -1,6 +1,7 @@
 "use client";
+
 import { CreateMemberDocument, CreateMemberMutation, CreateMemberMutationVariables, Member, Roles, Skill } from "@/gql/graphql";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SkillSearchInput from "./SkillSearchInput";
 import { OperationResult, useMutation } from "urql";
 import { toast } from "react-toastify";
@@ -97,6 +98,10 @@ export default function CreateMember(props: Props) {
 
 
 
+
+  // useEffect(() => {
+  //   setSkills(props.skills);
+  // }, [skills]);
 
   return (
     <>
@@ -218,7 +223,7 @@ export default function CreateMember(props: Props) {
                     </select>
                   </div>
                   <SkillSearchInput
-                    skillsData={props.skills}
+                    skillData={props.skills}
                     selectedSkills={selectedSkills}
                     setSelectedSkills={setSelectedSkills}
                     skills={skills}

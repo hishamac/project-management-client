@@ -2,13 +2,26 @@
 import { useState } from "react";
 import UpdateProject from "./UpdateProject";
 import DeleteProject from "./DeleteProject";
+import { Member, Project, Skill } from "@/gql/graphql";
 
-export default function ProjectsTable() {
+interface Props {
+  projects: Project[];
+  skills: Skill[];
+  members:Member[]
+}
+
+export default function ProjectsTable(props: Props) {
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   return (
     <>
-      <UpdateProject setModal={setModal} modal={modal} />
+      <UpdateProject
+        skills={props.skills}
+        projects={props.projects}
+        members={props.members}
+        setModal={setModal}
+        modal={modal}
+      />
       <DeleteProject
         setDeleteModal={setDeleteModal}
         deleteModal={deleteModal}
@@ -104,7 +117,10 @@ export default function ProjectsTable() {
                           </svg>
                         </a>
                       </td>
-                      <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent" onClick={() => setDeleteModal(true)}>
+                      <td
+                        className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent"
+                        onClick={() => setDeleteModal(true)}
+                      >
                         <a
                           href="javascript:;"
                           className="text-xs font-semibold leading-tight text-slate-400"

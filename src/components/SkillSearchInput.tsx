@@ -4,7 +4,7 @@ import { Skill } from "@/gql/graphql";
 import { useEffect, useState } from "react";
 
 interface Props {
-  skillsData: Skill[];
+  skillData: Skill[];
   className: string;
   skills: Skill[];
   setSkills: (skills: Skill[]) => void;
@@ -17,7 +17,7 @@ export default function SkillSearchInput(props: Props) {
   const [query, setQuery] = useState("");
 
   const {
-    skillsData,
+    skillData,
     skills,
     setSkills,
     selectedSkills,
@@ -26,8 +26,8 @@ export default function SkillSearchInput(props: Props) {
   } = props;
 
   useEffect(() => {
-    setSkills(skillsData);
-  }, [props.skillsData]);
+    setSkills(skillData);
+  }, [skillData]);
 
   const filtered = skills.filter((skill) =>
     skill?.title?.toLowerCase().includes(query)

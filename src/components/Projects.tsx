@@ -3,11 +3,12 @@ import { useState } from "react";
 import CreateProject from "./CreateProject";
 import Navbar from "./Navbar";
 import ProjectsTable from "./ProjectsTable";
-import { Project, Skill } from "@/gql/graphql";
+import { Member, Project, Skill } from "@/gql/graphql";
 
 interface Props {
   projects: Project[];
   skills: Skill[];
+  members: Member[];
 }
 
 export default function Projects(props: Props) {
@@ -36,9 +37,20 @@ export default function Projects(props: Props) {
           Create Project
         </button>
       </div>
-      {modal ? <CreateProject skills={props.skills} setModal={setModal} modal={modal} /> : null}
+      {modal ? (
+        <CreateProject
+          skills={props.skills}
+          members={props.members}
+          setModal={setModal}
+          modal={modal}
+        />
+      ) : null}
       <div className="w-full px-6 py-6 mx-auto">
-        <ProjectsTable />
+        <ProjectsTable
+          skills={props.skills}
+          projects={props.projects}
+          members={props.members}
+        />
       </div>
     </>
   );

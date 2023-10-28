@@ -21,6 +21,7 @@ export default function Profile(props: Props) {
   const [modal, setModal] = useState(false);
   const [allProjects, setAllProjects] = useState(props.projects);
   const [filteredProjects, setFilteredProjects] = useState(props.projects);
+  const [replyModal, setReplyModal] = useState(false);
 
   useEffect(() => {
     var db = firebasedb.getDatabase(app);
@@ -218,8 +219,8 @@ export default function Profile(props: Props) {
                     />
                   </div>
                   <div className="flex-auto p-4 max-h-80 overflow-x-auto">
-                    <ul className="flex flex-col pl-0 mb-0 rounded-lg">
-                      <li className="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
+                    <ul className="flex flex-col mb-0 rounded-lg bg-slate-50 p-2">
+                      <li className="relative flex items-center px-0 py-2 mb-2 border-0 rounded-t-lg text-inherit">
                         <div className="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
                           <img
                             src="https://raw.githubusercontent.com/creativetimofficial/soft-ui-dashboard-tailwind/main/build/assets/img/kal-visuals-square.jpg"
@@ -237,11 +238,27 @@ export default function Profile(props: Props) {
                         </div>
                         <a
                           className="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100"
-                          href="javascript:;"
+                          onClick={() => setReplyModal(!replyModal)}
                         >
                           Reply
                         </a>
                       </li>
+                      {replyModal ? (
+                        <li className="relative flex items-center px-0 py-2 mb-2 border-0 rounded-t-lg text-inherit">
+                          <div className="flex flex-col items-start justify-center w-full pr-1">
+                            <input
+                              type="text"
+                              className="border-b-2 border-slate-500 w-full bg-slate-50"
+                            />
+                          </div>
+                          <a
+                            className="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100"
+                            href="javascript:;"
+                          >
+                            Send
+                          </a>
+                        </li>
+                      ) : null}
                     </ul>
                   </div>
                 </div>

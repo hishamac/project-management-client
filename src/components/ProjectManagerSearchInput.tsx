@@ -32,7 +32,7 @@ export default function ProjectManagerSearchInput(props: Props) {
   return (
     <div className="px-6 py-3">
       <div className="w-full  bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto p-4 max-h-[365px] overflow-y-scroll">
-      {selectedProjectManager.firstName && (
+      {selectedProjectManager?.firstName && (
         <>
           <div className="flex items-center justify-between mb-4">
             <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">

@@ -1,4 +1,6 @@
-import { Project } from "@/gql/graphql";
+import { Project, RemoveProjectDocument, RemoveProjectMutation, RemoveProjectMutationVariables } from "@/gql/graphql";
+import { toast } from "react-toastify";
+import { OperationResult, useMutation } from "urql";
 
 interface Props {
   setDeleteModal: any;
@@ -7,10 +9,33 @@ interface Props {
   setAllProjects: React.Dispatch<React.SetStateAction<Project[]>>;
   filteredProjects: Project[];
   setFilteredProjects: React.Dispatch<React.SetStateAction<Project[]>>;
+  id: number;
 }
 export default function DeleteProject(props: Props) {
   const { setDeleteModal, deleteModal } = props;
+  const {allProjects , filteredProjects , setFilteredProjects , setAllProjects} = props
+  const [state, RemoveProjectExecute] = useMutation(RemoveProjectDocument);
 
+  const HandleSubmit = async () => {
+    const savedProject: OperationResult<
+      RemoveProjectMutation,
+      RemoveProjectMutationVariables
+    > = await RemoveProjectExecute({
+      id: props.id as number,
+    });
+
+    let deleted: Project = savedProject?.data?.removeProject as Project;
+
+    if(deleted){
+      toast.success(`Project deleted successfully!`);
+      setAllProjects(allProjects.filter((Project) => Project.id !== deleted.id));
+      setFilteredProjects(filteredProjects.filter((Project) => Project.id !== deleted.id));
+      setDeleteModal(false);
+    }else{
+      toast.error(`Something went wrong!`);
+    }
+    
+  };
   return (
     <>
       {deleteModal ? (
@@ -30,6 +55,9 @@ export default function DeleteProject(props: Props) {
                   <button
                     type="submit"
                     data-toggle="deleteModal"
+                    onClick={
+                      HandleSubmit
+                    }
                     data-target="#import"
                     className="inline-block px-8 py-2 m-1 mb-4 text-xs font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer ease-soft-in leading-pro tracking-tight-soft bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-md bg-150 bg-x-25 hover:scale-102 active:opacity-85"
                   >

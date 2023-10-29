@@ -18,6 +18,7 @@ export default function ProjectsTable(props: Props) {
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const {allProjects , filteredProjects , setFilteredProjects , setAllProjects} = props
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   return (
     <>
       <UpdateProject
@@ -30,8 +31,10 @@ export default function ProjectsTable(props: Props) {
         setFilteredProjects={setFilteredProjects}
         setAllProjects={setAllProjects}
         modal={modal}
+        project={selectedProject as Project}
       />
       <DeleteProject
+        id={selectedProject?.id as number}
         setDeleteModal={setDeleteModal}
         deleteModal={deleteModal}
         allProjects={allProjects}
@@ -68,8 +71,8 @@ export default function ProjectsTable(props: Props) {
                   </thead>
                   <tbody>
                   {
-          filteredProjects.length > 0  && 
-          filteredProjects.map((project) => {
+          filteredProjects?.length > 0  && 
+          filteredProjects?.map((project) => {
 
             let tasksCount = project.tasks?.length ;
             let projectCompletion = 0;
@@ -134,7 +137,9 @@ export default function ProjectsTable(props: Props) {
               </td>
               <td
                 className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent"
-                onClick={() => setModal(true)}
+                onClick={() =>{ setModal(true)
+                
+                setSelectedProject(project)}}
               >
                 <a
                   href="javascript:;"
@@ -152,7 +157,8 @@ export default function ProjectsTable(props: Props) {
               </td>
               <td
                 className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent"
-                onClick={() => setDeleteModal(true)}
+                onClick={() => {setDeleteModal(true) 
+                setSelectedProject(project)}}
               >
                 <a
                   href="javascript:;"

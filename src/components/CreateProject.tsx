@@ -1,7 +1,10 @@
-import { Member, Project, Skill } from "@/gql/graphql";
+import { CreateProjectDocument, CreateProjectMutation, CreateProjectMutationVariables, Member, Project, Skill } from "@/gql/graphql";
 import { useEffect, useState } from "react";
 import SkillSearchInput from "./SkillSearchInput";
 import ProjectManagerSearchInput from "./ProjectManagerSearchInput";
+import { SERVER } from "@/lib/env";
+import { OperationResult, useMutation } from "urql";
+import { toast } from "react-toastify";
 
 interface Props {
   setModal: any;
@@ -22,9 +25,76 @@ export default function CreateProject(props: Props) {
   const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
   const selectedSkillsIds = selectedSkills.map((skill) => skill.id);
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [duration, setDuration] = useState<Date | string | undefined>();
   const [selectedProjectManager, setSelectedProjectManager] =
     useState<Member>(Object);
   const [projectManagers, setProjectManagers] = useState<Member[]>(Array);
+
+  const [state, CreateProjectExecute] = useMutation(CreateProjectDocument);
+
+  const HandleSubmit = async () => {
+    const savedProject: OperationResult<CreateProjectMutation, CreateProjectMutationVariables> = await CreateProjectExecute({
+      skillsIds: selectedSkillsIds as number[],
+      description: description,
+      title: title,
+      managerId: selectedProjectManager?.id as number,
+      duration: 0,
+    });
+
+
+    let res;
+    
+    let newProject : Project = savedProject?.data?.createProject as Project;
+
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("id", savedProject.data?.createProject?.id+'');
+
+
+      // upload image to server using axios
+      res = await fetch(
+        `${SERVER}project/upload/`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      console.log(await res.json());
+    }
+
+
+
+    if (savedProject.data?.createProject) {
+      toast.success("Project Added Successfully");
+      newProject.skillProject = [];
+      newProject?.skillProject.map((skillProject) => {
+        skillProject.skill = selectedSkills.find((skill) => skill.id === skillProject.skill?.id);
+      }
+      );
+
+      
+      // set image url to saved Project
+      // newProject.avatarId = await res?.json().then((data) => data?.avatarId);
+
+      props.setAllProjects([...props.allProjects, newProject]);
+      props.setFilteredProjects([...props.filteredProjects, newProject]);
+      setModal(false);
+      setSelectedSkills([]);
+      setSkills([]);
+      setDuration(undefined);
+      setSelectedProjectManager(Object);
+      setProjectManagers([]);
+      setTitle("");
+      setDescription("");
+      setFile(null);
+
+
+    } else {
+      savedProject.error?.message.split("]")[1].startsWith(" target") ? toast.error("server error") : toast.error(savedProject.error?.message.split("]")[1]);
+    }
+  };
 
   return (
     <>
@@ -47,26 +117,39 @@ export default function CreateProject(props: Props) {
                   />
                 </div>
                 {/*body*/}
-                <form encType="multipart/form-data">
+                <form encType="multipart/form-data" 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    HandleSubmit();
+                  }
+                  }
+
+                >
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Image</p>
                     <input
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none "
                       type="file"
-                      required
-                    />
+                      required 
+                      onChange={(e) =>  setFile(e?.target?.files ? e?.target?.files[0] : null)}
+
+                       />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Title</p>
                     <input
                       type="text"
                       placeholder="Enter your Title"
+                      onChange={(e) => setTitle(e.target.value)}
+                      value={title}
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                     />
                   </div>
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Description</p>
                     <input
+                      onChange={(e) => setDescription(e.target.value)}
+                      value={description}
                       type="text"
                       placeholder="Enter your Description"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
@@ -91,7 +174,9 @@ export default function CreateProject(props: Props) {
                   <div className="relative px-6 py-1 flex-auto">
                     <p className="-mb-1 ml-1 text-sm font-bold">Duration</p>
                     <input
-                      type="text"
+                      type="datetime-local"
+                      value={!Number.isNaN(new Date(duration as string).getTime()) ? (duration as Date).toISOString()?.slice(0, 16) : ""}
+                      onChange={(e) => setDuration(new Date(e.target.value))}
                       placeholder="Enter your Duration"
                       className="focus:shadow-soft-primary-outline text-sm leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-1 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
                     />

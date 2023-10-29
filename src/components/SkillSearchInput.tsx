@@ -36,7 +36,7 @@ export default function SkillSearchInput(props: Props) {
   return (
     <div className={props.className}>
       <div className="w-full bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto p-4 max-h-[365px] overflow-y-auto">
-        {selectedSkills.length > 0 &&
+        {selectedSkills?.length > 0 &&
           (console.log(selectedSkills),
           console.log(selectedSkillsIds),
           (
@@ -51,7 +51,7 @@ export default function SkillSearchInput(props: Props) {
                   role="list"
                   className="divide-y divide-gray-200 dark:divide-gray-700"
                 >
-                  {selectedSkills.map((skill, index) => (
+                  {selectedSkills?.map((skill, index) => (
                     <li
                       className="py-3 sm:py-2 flex justify-between"
                       key={index}
@@ -77,7 +77,7 @@ export default function SkillSearchInput(props: Props) {
                           const objectWithIdIndex = selectedSkills.findIndex(
                             (skill1) => skill1.id === skill.id
                           );
-                          selectedSkills.splice(objectWithIdIndex, 1);
+                          selectedSkills?.splice(objectWithIdIndex, 1);
 
                           setSkills([...skills, skill]);
                         }}

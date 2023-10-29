@@ -31,7 +31,7 @@ export default function DeleteMember(props: Props) {
       toast.success(`Member deleted successfully!`);
       setAllMembers(allMembers.filter((member) => member.id !== deleted.id));
       setFilteredMembers(filteredMembers.filter((member) => member.id !== deleted.id));
-      // setDeleteModal(false);
+      setDeleteModal(false);
     }else{
       toast.error(`Something went wrong!`);
     }

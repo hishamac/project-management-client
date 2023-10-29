@@ -1,4 +1,4 @@
-import { CreateProjectDocument, CreateProjectMutation, CreateProjectMutationVariables, Member, Project, Skill } from "@/gql/graphql";
+import { CreateProjectDocument, CreateProjectMutation, CreateProjectMutationVariables, Member, Project, Roles, Skill } from "@/gql/graphql";
 import { useEffect, useState } from "react";
 import SkillSearchInput from "./SkillSearchInput";
 import ProjectManagerSearchInput from "./ProjectManagerSearchInput";
@@ -156,7 +156,11 @@ export default function CreateProject(props: Props) {
                     />
                   </div>
                   <ProjectManagerSearchInput
-                    projectManagerData={props.members}
+                    projectManagerData={props.members?.filter((member)=>{
+                      if( member.role == Roles.Manager){
+                        return member
+                      }
+                    })}
                     selectedProjectManager={selectedProjectManager}
                     setSelectedProjectManager={setSelectedProjectManager}
                     projectManagers={projectManagers}

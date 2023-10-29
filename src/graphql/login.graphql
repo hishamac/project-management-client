@@ -53,6 +53,8 @@ query checkLoggedIn{
     role
     isAvailable
     avatarId
+    bio
+    email
   }
 }
 

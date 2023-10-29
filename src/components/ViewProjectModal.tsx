@@ -1,6 +1,9 @@
+import { Project } from "@/gql/graphql";
+
 interface Props {
   setViewProject: any;
   viewProject: boolean;
+  selectedProject : Project
 }
 export default function ViewProjectModal(props: Props) {
   const { setViewProject, viewProject } = props;
@@ -61,24 +64,29 @@ export default function ViewProjectModal(props: Props) {
                   </div>
                   <div className="flex-auto p-4 max-h-80 overflow-x-auto">
                     <p className="leading-normal text-sm">
-                      Hi, I’m Alec Thompson, Decisions: If you can’t decide, the
-                      answer is no. If two equally difficult paths, choose the
-                      one more painful in the short term (pain avoidance is
-                      creating an illusion of equality).
+                      {
+                        props.selectedProject.description
+                      }
                     </p>
                     <hr className="h-px my-6 bg-transparent bg-gradient-to-r from-transparent via-white to-transparent" />
                     <ul className="flex flex-col pl-0 mb-0 rounded-lg">
                       <li className="relative block px-4 py-2 pt-0 pl-0 leading-normal bg-white border-0 rounded-t-lg text-sm text-inherit">
-                        <strong className="text-slate-700">Full Name:</strong>{" "}
-                        &nbsp; Alec M. Thompson
+                        <strong className="text-slate-700">Title:</strong>{" "}
+                        &nbsp; {
+                          props.selectedProject.title
+                        }
                       </li>
                       <li className="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                        <strong className="text-slate-700">Mobile:</strong>{" "}
-                        &nbsp; (44) 123 1234 123
+                        <strong className="text-slate-700">Manager:</strong>{" "}
+                        &nbsp; {
+                          props.selectedProject.manager?.firstName
+                        }
                       </li>
                       <li className="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                         <strong className="text-slate-700">Email:</strong>{" "}
-                        &nbsp; alecthompson@mail.com
+                        &nbsp; {
+                           props.selectedProject.manager?.email
+                        }
                       </li>
                       <li className="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                         <strong className="text-slate-700">Location:</strong>{" "}
